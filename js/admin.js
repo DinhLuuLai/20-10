@@ -17,6 +17,7 @@ class AdminManager {
 
     // Danh sách avatar mẫu xinh xắn để đổi nhanh
     this.avatarPresets = [
+      "images/avatar.png",
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
       "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80",
@@ -406,7 +407,7 @@ class AdminManager {
     const contentInput = document.getElementById("new-tl-content");
 
     if (!titleInput.value.trim() || !contentInput.value.trim()) {
-      alert("Vui lòng nhập tiêu đề và nội dung tấm thư!");
+      this.showToast("Vui lòng nhập tiêu đề và nội dung tấm thư!", "warning");
       return;
     }
 
@@ -580,7 +581,7 @@ class AdminManager {
     const highlightInput = document.getElementById("new-wish-highlight");
 
     if (!titleInput.value.trim() || !contentInput.value.trim()) {
-      alert("Vui lòng nhập đầy đủ tiêu đề và nội dung lời chúc!");
+      this.showToast("Vui lòng nhập đầy đủ tiêu đề và nội dung lời chúc!", "warning");
       return;
     }
 
@@ -742,7 +743,7 @@ class AdminManager {
     const dateInput = document.getElementById("new-mem-date");
 
     if (!urlInput.value.trim()) {
-      alert("Vui lòng nhập link ảnh hoặc chọn file ảnh từ máy!");
+      this.showToast("Vui lòng nhập link ảnh hoặc chọn file ảnh từ máy!", "warning");
       return;
     }
 
@@ -891,7 +892,7 @@ class AdminManager {
     });
 
     document.getElementById("btn-admin-avatar-clear")?.addEventListener("click", () => {
-      const defaultAvatar = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80";
+      const defaultAvatar = "images/avatar.png";
       document.getElementById("cfg-recipient-avatar").value = defaultAvatar;
       this.updateLiveAvatarPreview(defaultAvatar);
       this.showToast("Đã đặt lại ảnh đại diện mặc định!", "info");
@@ -1056,8 +1057,54 @@ class AdminManager {
         const title = e.currentTarget.getAttribute("data-preset-title");
         document.getElementById("cfg-music-url").value = url;
         document.getElementById("cfg-music-title").value = title;
-        this.showToast(`Đã chọn nhạc mẫu: ${title}`, "info");
+        this.showToast(`Đã chọn bài hát: ${title}`, "info");
       });
+    });
+
+    // Tải file MP3 trực tiếp từ máy tính / điện thoại
+    const musicFileInput = document.getElementById("cfg-music-file-input");
+    const triggerMusicBtn = document.getElementById("btn-trigger-music-file");
+    const musicUploadStatus = document.getElementById("music-file-upload-status");
+
+    triggerMusicBtn?.addEventListener("click", () => {
+      musicFileInput?.click();
+    });
+
+    musicFileInput?.addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (musicUploadStatus) musicUploadStatus.textContent = "⏳ Đang tải file lên...";
+      this.showToast("⏳ Đang tải bài hát lên server...", "info");
+
+      try {
+        const response = await fetch("/api/upload-audio", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/octet-stream"
+          },
+          body: file
+        });
+        const result = await response.json();
+        if (result.success) {
+          const songName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+          const formattedTitle = songName.toLowerCase().includes("nang tho") || songName.toLowerCase().includes("nàng thơ") 
+            ? "Nàng Thơ - Hoàng Dũng" 
+            : songName;
+          
+          document.getElementById("cfg-music-url").value = result.url;
+          document.getElementById("cfg-music-title").value = formattedTitle;
+          if (musicUploadStatus) musicUploadStatus.textContent = `✅ Đã nhận: ${file.name}`;
+          this.showToast("🎵 Đã nạp bài hát vào dự án thành công!", "success");
+          window.audioManager.playSfx("sparkle");
+        } else {
+          throw new Error(result.error || "Không thể lưu file");
+        }
+      } catch (err) {
+        console.error("Lỗi upload nhạc:", err);
+        if (musicUploadStatus) musicUploadStatus.textContent = "❌ Lỗi: " + err.message;
+        this.showToast("Lỗi tải nhạc: " + err.message, "warning");
+      }
     });
 
     // --- TAB TẠO TRANG RIÊNG & QR CODE ---
@@ -1396,10 +1443,22 @@ class AdminManager {
     const container = document.getElementById("toast-container");
     if (!container) return;
 
+    // Giới hạn tối đa 2 thông báo cùng lúc để không chiếm diện tích màn hình điện thoại
+    while (container.children.length >= 2) {
+      container.removeChild(container.firstChild);
+    }
+
     const toast = document.createElement("div");
     toast.className = `vip-toast toast-${type}`;
     const icon = type === "success" ? "✨" : type === "error" ? "⚠️" : "💎";
-    toast.innerHTML = `<span class="toast-icon">${icon}</span> <span>${this.escapeHtml(message)}</span>`;
+    toast.innerHTML = `<span class="toast-icon">${icon}</span><span class="toast-msg">${this.escapeHtml(message)}</span>`;
+    
+    // Chạm vào thông báo để đóng ngay lập tức
+    toast.addEventListener("click", () => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 250);
+    });
+
     container.appendChild(toast);
 
     setTimeout(() => {
@@ -1408,8 +1467,8 @@ class AdminManager {
 
     setTimeout(() => {
       toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 400);
-    }, 3500);
+      setTimeout(() => toast.remove(), 250);
+    }, 2400);
   }
 
   escapeHtml(str) {

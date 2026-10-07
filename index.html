@@ -2,7 +2,10 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0b0517">
   <meta name="description" content="Trang web vinh danh & gửi lời chúc VIP sang trọng với âm nhạc, hiệu ứng 3D và bảng điều khiển quản trị viên độc quyền.">
   <title>VIP Dedication ✦ Đặc Quyền Yêu Thương</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
@@ -82,11 +85,11 @@
 
       <!-- BƯỚC 2: NHẬP TÊN + CHỌN DANH PHẬN (Hiện sau khi nhập đúng pass ở trang chủ) -->
       <div id="lock-step-profile" class="lock-step" style="display: none; animation: elementFloatIn 0.5s ease both;">
-        <div style="background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.25); border-radius: 14px; padding: 12px 16px; margin-bottom: 18px;">
-          <div style="color: var(--accent-gold); font-size: 0.95rem; font-weight: 700; margin-bottom: 4px;">
+        <div class="lock-step-notice-card">
+          <div class="notice-title">
             🎉 Mật Mã Chính Xác!
           </div>
-          <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;">
+          <div class="notice-desc">
             Hãy cho chúng mình biết họ tên và danh phận để website cá nhân hóa toàn bộ xưng hô và nội dung dành riêng cho bạn:
           </div>
         </div>
@@ -230,7 +233,7 @@
 
         <div class="hero-avatar-wrapper">
           <div class="hero-avatar-ring"></div>
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" 
+          <img src="images/avatar.png" 
                alt="Avatar Người Nhận" 
                class="hero-avatar-img" 
                id="hero-avatar">
@@ -350,7 +353,8 @@
         <!-- THÔNG BÁO HƯỚNG DẪN TƯƠNG TÁC ĐỘC LẬP - ĐẶT NGOÀI KHUNG 3D, KHÔNG BỊ ĐÈ -->
         <div class="tree-bottom-notice-bar">
           <div class="tree-interaction-hint">
-            ✦ Click vào Bé Gấu Trúc để nhận lời chúc • Click vào lá thư / bóng bay để mở • Kéo chuột xoay 3D ✦
+            <span class="tree-hint-desktop">✦ Click vào Bé Gấu Trúc để nhận lời chúc • Click vào lá thư / bóng bay để mở • Kéo chuột xoay 3D ✦</span>
+            <span class="tree-hint-mobile">✦ Chạm Gấu Trúc hoặc Lá Thư để mở • Vuốt để xoay 3D ✦</span>
           </div>
         </div>
 
@@ -978,9 +982,9 @@
               <textarea id="new-wish-content" class="form-textarea" rows="2" placeholder="Nội dung lời chúc chi tiết..."></textarea>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-              <div style="display: flex; align-items: center; gap: 16px;">
-                <input type="text" id="new-wish-author" class="form-input" placeholder="Người gửi (Mặc định: Admin)" style="width: 200px;">
-                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #fff; font-size: 0.9rem;">
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; flex: 1;">
+                <input type="text" id="new-wish-author" class="form-input" placeholder="Người gửi (Mặc định: Admin)" style="flex: 1; min-width: 140px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #fff; font-size: 0.88rem; white-space: nowrap;">
                   <input type="checkbox" id="new-wish-highlight" checked> Đánh dấu VIP Nổi Bật
                 </label>
               </div>
@@ -1076,9 +1080,28 @@
               <input type="text" id="cfg-music-url" class="form-input" placeholder="https://.../music.mp3">
             </div>
 
+            <div class="form-group" style="background: rgba(255, 215, 0, 0.06); border: 1px dashed rgba(255, 215, 0, 0.35); border-radius: 12px; padding: 12px 14px; margin-top: 12px;">
+              <label class="form-label" style="color: var(--accent-gold); font-weight: 700; margin-bottom: 6px;">
+                🎵 Tải bài hát MP3 (ví dụ: Nàng Thơ) trực tiếp từ máy:
+              </label>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <input type="file" id="cfg-music-file-input" accept="audio/mp3,audio/*" style="display: none;">
+                <button type="button" class="vip-btn vip-btn-secondary" id="btn-trigger-music-file" style="padding: 6px 14px; font-size: 0.82rem;">
+                  <span>📁</span> <span>Chọn File MP3 Từ Máy</span>
+                </button>
+                <span id="music-file-upload-status" style="font-size: 0.78rem; color: #2ed573; font-weight: 600;"></span>
+              </div>
+              <small class="text-muted" style="display:block; margin-top: 6px; font-size: 0.75rem;">
+                💡 Chọn file <b>Nàng Thơ.mp3</b> từ máy, hệ thống sẽ nạp vào thư mục <code>audio/</code> và phát ngay lập tức!
+              </small>
+            </div>
+
             <div style="margin-top: 14px;">
-              <small class="text-muted" style="display:block; margin-bottom: 8px;">Nhạc mẫu lofi du dương có sẵn để chọn nhanh 1-click:</small>
+              <small class="text-muted" style="display:block; margin-bottom: 8px;">Nhạc mẫu có sẵn để chọn nhanh 1-click:</small>
               <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button type="button" class="header-action-btn" data-preset-music="audio/nang-tho.mp3" data-preset-title="Nàng Thơ - Hoàng Dũng">
+                  🎼 Nàng Thơ (Hoàng Dũng)
+                </button>
                 <button type="button" class="header-action-btn" data-preset-music="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" data-preset-title="Romantic Piano (Sweet Melody)">
                   🎹 Piano Lãng Mạn
                 </button>

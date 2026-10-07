@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "audienceMode": "friend",
+  "audienceMode": "crush",
   "security": {
     "pin": "2010",
     "entryPasscode": "2010",
@@ -17,14 +17,14 @@
     "occasion": "20/10 - Ngày Phụ Nữ Việt Nam",
     "headerBadge": "✦ VIP SPECIAL DEDICATION ✦",
     "subGreeting": "Chúc em/cậu một ngày 20/10 ngập tràn niềm vui, bình an và hạnh phúc trọn vẹn!",
-    "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+    "avatarUrl": "images/avatar.png",
     "eventDate": "2026-10-20T00:00",
     "relationshipStatus": "Tình yêu duy nhất"
   },
   "music": {
-    "title": "Until I Found You (Romantic Piano Lofi)",
-    "artist": "Stephen Sanchez (Instrumental)",
-    "url": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3",
+    "title": "Nàng Thơ - Hoàng Dũng",
+    "artist": "Hoàng Dũng",
+    "url": "audio/nang-tho.mp3",
     "autoPlayPrompt": true
   },
   "letter": {
@@ -33,6 +33,15 @@
     "content": "Thế giới này có hơn 8 tỷ người, nhưng với anh, nụ cười của em là điều rạng rỡ và dịu dàng nhất.\n\nNhân ngày 20/10 thật đặc biệt này, anh muốn gửi trọn những tình cảm chân thành và ngọt ngào nhất tới em. Cảm ơn em vì đã xuất hiện, thắp sáng cuộc sống của anh bằng sự ân cần, thông minh và đáng yêu không ai sánh bằng.\n\nChúc công chúa của anh luôn tự tin tỏa sáng như những vì sao lấp lánh, mỗi ngày trôi qua đều là một ngày hạnh phúc, bình yên và tràn ngập những điều bất ngờ tuyệt diệu nhất.\n\nYêu và luôn bên cạnh em! ❤️"
   },
   "wishes": [
+    {
+      "id": "w_guest_1791341650129",
+      "title": "Lời chúc từ Tri kTri ky",
+      "content": "Chuc cau luon vui ve va hanh phuc!",
+      "tag": "Hạnh Phúc",
+      "icon": "💖",
+      "author": "Tri kTri ky",
+      "isHighlight": false
+    },
     {
       "id": "w1",
       "tag": "Vẻ Đẹp",

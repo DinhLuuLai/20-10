@@ -2034,6 +2034,36 @@ body::before {
   gap: 8px;
 }
 
+.tree-hint-desktop {
+  display: inline;
+}
+
+.tree-hint-mobile {
+  display: none;
+}
+
+.lock-step-notice-card {
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.lock-step-notice-card .notice-title {
+  color: var(--accent-gold);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.lock-step-notice-card .notice-desc {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
 /* Quick Letter Tags List below 3D Tree */
 .tree-letters-quick-container {
   margin-top: 24px;
@@ -3463,31 +3493,53 @@ body::before {
   100% { transform: translateY(-120px) scale(1.4); opacity: 0; }
 }
 
-/* --- 15. TOAST NOTIFICATIONS --- */
+/* --- 15. TOAST NOTIFICATIONS (GỌN GÀNG & TINH TẾ) --- */
 #toast-container {
   position: fixed;
-  top: 24px;
-  right: 24px;
+  top: 20px;
+  right: 20px;
   z-index: 100000;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  pointer-events: none;
 }
 
 .vip-toast {
-  background: rgba(22, 13, 38, 0.95);
+  pointer-events: auto;
+  background: rgba(20, 11, 36, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--accent-gold);
-  border-radius: var(--radius-md);
-  padding: 14px 22px;
+  border-radius: 9999px;
+  padding: 8px 18px;
   color: #fff;
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.86rem;
   display: flex;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 20px var(--accent-glow);
+  gap: 9px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.65), 0 0 15px var(--accent-glow);
   transform: translateX(120%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  max-width: 440px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.vip-toast.toast-success {
+  border-color: rgba(46, 213, 115, 0.7);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.65), 0 0 15px rgba(46, 213, 115, 0.25);
+}
+
+.vip-toast.toast-error {
+  border-color: rgba(255, 71, 87, 0.7);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.65), 0 0 15px rgba(255, 71, 87, 0.25);
+}
+
+.vip-toast.toast-warning {
+  border-color: rgba(255, 165, 2, 0.7);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.65), 0 0 15px rgba(255, 165, 2, 0.25);
 }
 
 .vip-toast.show {
@@ -3495,7 +3547,13 @@ body::before {
 }
 
 .toast-icon {
-  font-size: 1.3rem;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.toast-msg {
+  white-space: normal;
+  line-height: 1.35;
 }
 
 /* --- 16. FOOTER --- */
@@ -3994,4 +4052,692 @@ body::before {
     box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 105, 180, 0.4);
   }
 }
+
+/* =========================================================================
+   COMPREHENSIVE MOBILE RESPONSIVE ENGINE (CHUYÊN BIỆT CHO ĐIỆN THOẠI DI ĐỘNG)
+   Hỗ trợ tối ưu màn hình: iPhone (SE, 11, 12, 13, 14, 15, 16 Pro Max),
+   Android (Samsung, Xiaomi, Oppo, Vivo...), Zalo/Facebook Webview, Cốc Cốc Mobile.
+   ========================================================================= */
+
+@media (max-width: 768px) {
+  /* 1. Global & Safe Area Containers */
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+  .site-container {
+    padding: 0 14px;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* 2. Top Header */
+  .vip-header {
+    padding: 12px 0 10px;
+    gap: 8px;
+    align-items: center;
+  }
+  .vip-brand {
+    gap: 8px;
+  }
+  .vip-logo-crown {
+    font-size: 1.6rem;
+  }
+  .vip-brand-text {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  #header-dedication-tag {
+    display: none; /* Rút gọn trên mobile để tránh vỡ dòng */
+  }
+  .btn-toggle-audience-mode {
+    padding: 5px 11px;
+    font-size: 0.74rem;
+    gap: 5px;
+  }
+  .btn-toggle-audience-mode .mode-badge-switch {
+    font-size: 0.75rem;
+  }
+
+  /* 3. Multi-page Chapter Navbar */
+  .vip-page-navbar {
+    margin: 8px 0 18px;
+    padding: 5px 6px;
+    gap: 5px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-radius: 9999px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+  .vip-page-navbar::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-page-btn {
+    padding: 7px 13px;
+    font-size: 0.78rem;
+    gap: 5px;
+    flex-shrink: 0;
+    border-radius: 9999px;
+  }
+  .nav-btn-icon {
+    font-size: 0.95rem;
+  }
+
+  /* 4. Journey Roadmap Tracker */
+  .journey-roadmap-tracker {
+    padding: 12px 10px;
+    margin-bottom: 20px;
+    border-radius: 18px;
+  }
+  .roadmap-header {
+    margin-bottom: 12px;
+  }
+  .roadmap-badge-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+  }
+  .roadmap-progress-percent {
+    font-size: 0.72rem;
+  }
+  .roadmap-track-container {
+    padding: 0 4px;
+  }
+  .roadmap-track-line {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+  }
+  .roadmap-steps {
+    gap: 4px;
+  }
+  .step-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.88rem;
+  }
+  .step-check-badge {
+    width: 14px;
+    height: 14px;
+    font-size: 0.62rem;
+  }
+  .step-title {
+    font-size: 0.6rem;
+  }
+  .step-sub {
+    font-size: 0.68rem;
+    max-width: 62px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 5. Chapter 1: Welcome & Hero Section */
+  .hero-section {
+    padding: 10px 0 28px;
+  }
+  .hero-badge {
+    font-size: 0.72rem;
+    padding: 5px 14px;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+  .hero-avatar-wrapper {
+    width: 135px;
+    height: 135px;
+    margin-bottom: 16px;
+  }
+  .hero-title-greeting {
+    font-size: 0.92rem;
+    margin-bottom: 6px;
+  }
+  .hero-recipient-name {
+    font-size: clamp(1.85rem, 7.8vw, 2.5rem);
+    line-height: 1.22;
+    margin-bottom: 6px;
+    word-break: break-word;
+  }
+  .hero-nickname {
+    font-size: clamp(1.1rem, 4.6vw, 1.45rem);
+    margin-bottom: 12px;
+  }
+  .hero-occasion-badge {
+    font-size: 0.78rem;
+    padding: 5px 14px;
+    margin-bottom: 14px;
+  }
+  .hero-subgreeting {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    max-width: 95%;
+    margin-bottom: 20px;
+  }
+
+  /* Countdown Timer Mobile Optimization */
+  .countdown-container {
+    padding: 16px 10px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    max-width: 100%;
+  }
+  .countdown-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+  }
+  .countdown-digits {
+    gap: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  .cd-box {
+    min-width: 50px;
+    max-width: 66px;
+    padding: 8px 4px;
+    border-radius: 10px;
+    flex: 1;
+  }
+  .cd-num {
+    font-size: 1.35rem;
+    line-height: 1.1;
+  }
+  .cd-sub {
+    font-size: 0.62rem;
+    margin-top: 2px;
+  }
+  .cd-sep {
+    font-size: 1.1rem;
+    margin: 0 1px;
+  }
+
+  /* 6. Chapter 2: 3D Sakura Tree */
+  #tree-canvas-container {
+    height: 380px;
+    min-height: 330px;
+    max-height: 52vh;
+    border-radius: 18px;
+    touch-action: pan-y pinch-zoom;
+  }
+  .tree-interactive-guide {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    gap: 10px;
+  }
+  .guide-icon-pulse {
+    font-size: 1.3rem;
+  }
+  .guide-text-content h4 {
+    font-size: 0.85rem;
+  }
+  .guide-text-content p {
+    font-size: 0.76rem;
+  }
+  .tree-letters-quick-container {
+    padding: 12px 10px;
+    border-radius: 16px;
+  }
+  .tree-quick-header {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+  .tree-letters-quick-list {
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+  }
+  .tree-quick-item {
+    min-width: 160px;
+    max-width: 180px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+  .tree-letter-modal-card {
+    max-width: 92vw;
+    padding: 22px 16px;
+    border-radius: 18px;
+    max-height: 85vh;
+  }
+
+  /* 7. Chapter 3: Letter Section & Vouchers */
+  .sealed-envelope-card {
+    padding: 24px 16px;
+    border-radius: 20px;
+    max-width: 100%;
+  }
+  .envelope-stamp {
+    font-size: 1.8rem;
+  }
+  .wax-seal-button {
+    width: 64px;
+    height: 64px;
+    font-size: 1.6rem;
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+  }
+  .letter-parchment-sheet {
+    padding: 22px 16px;
+    border-radius: 18px;
+  }
+  .letter-parchment-content {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .surprise-gift-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .gift-voucher-card {
+    padding: 16px 14px;
+    border-radius: 14px;
+  }
+  .voucher-title {
+    font-size: 0.95rem;
+  }
+  .voucher-desc {
+    font-size: 0.84rem;
+  }
+  .voucher-code-badge {
+    font-size: 0.78rem;
+    padding: 6px 12px;
+  }
+
+  /* 8. Chapter 4: Wishes & Memories */
+  .wishes-filter-bar {
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .wishes-filter-pill {
+    padding: 6px 13px;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
+  }
+  .wishes-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .wish-item-card {
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+  .wish-card-title {
+    font-size: 1.05rem;
+  }
+  .wish-card-content {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .memories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .memory-card {
+    border-radius: 14px;
+  }
+
+  /* 9. Page Footer Navigation (Stepper) */
+  .page-footer-nav {
+    margin-top: 36px;
+    padding: 16px 14px;
+    border-radius: 16px;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  .page-step-dots {
+    justify-content: center;
+  }
+  .btn-page-nav {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 18px;
+    font-size: 0.9rem;
+    min-height: 48px;
+    border-radius: 9999px;
+  }
+
+  /* 10. Floating Music Hub on Mobile */
+  .floating-music-bar {
+    position: fixed;
+    bottom: max(12px, env(safe-area-inset-bottom, 12px));
+    left: 12px;
+    right: 12px;
+    max-width: calc(100% - 24px);
+    padding: 6px 14px 6px 10px;
+    border-radius: 9999px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    z-index: 95;
+  }
+  .music-title-text {
+    max-width: 130px;
+    font-size: 0.78rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 11. Lock Screen on Mobile */
+  .entry-lock-screen {
+    padding: 12px 10px;
+    align-items: center;
+  }
+  .lock-screen-card {
+    max-width: 390px;
+    padding: 22px 16px 18px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+  }
+  .lock-avatar-glow {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  .lock-heart-icon {
+    font-size: 2.2rem;
+  }
+  .lock-badge {
+    font-size: 0.68rem;
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+  }
+  .lock-title {
+    font-size: 1.45rem;
+    margin-bottom: 6px;
+  }
+  .lock-desc {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin-bottom: 16px;
+  }
+  .passcode-input-wrapper {
+    margin-bottom: 16px;
+  }
+  .passcode-dots {
+    gap: 8px;
+  }
+  .p-dot {
+    width: 11px;
+    height: 11px;
+  }
+  .keypad-grid {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .keypad-btn {
+    padding: 12px 0;
+    font-size: 1.25rem;
+    border-radius: 12px;
+    min-height: 48px;
+  }
+  .lock-actions {
+    gap: 10px;
+  }
+  .vip-btn {
+    min-height: 48px;
+    padding: 12px 18px;
+    font-size: 0.92rem;
+    border-radius: 9999px;
+  }
+  .lock-mode-selector-wrap {
+    margin-bottom: 16px;
+  }
+  .lock-mode-selector {
+    width: 100%;
+    display: flex;
+  }
+  .lock-mode-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 9px 8px;
+    font-size: 0.76rem;
+    white-space: nowrap;
+  }
+  #entry-recipient-fullname {
+    font-size: 16px !important; /* Ngăn iOS Safari tự động phóng to input */
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+
+  /* 12. Admin Dashboard on Mobile */
+  .admin-dashboard-modal {
+    padding: 10px;
+    align-items: flex-end;
+  }
+  .admin-dashboard-container {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+    padding: 18px 14px env(safe-area-inset-bottom, 20px);
+  }
+  .admin-tabs-nav {
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+  }
+  .admin-tab-btn {
+    padding: 7px 12px;
+    font-size: 0.76rem;
+    flex-shrink: 0;
+  }
+  .form-input, .form-textarea, .form-select {
+    font-size: 16px !important; /* Ngăn iOS zoom */
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+  #share-qr-image {
+    max-width: 170px;
+    max-height: 170px;
+  }
+
+  /* 13. Toast Notifications & Alerts Siêu Gọn Gàng Trên Mobile */
+  #toast-container {
+    top: max(8px, env(safe-area-inset-top, 8px));
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 88vw;
+    align-items: center;
+    gap: 4px;
+    pointer-events: none;
+    z-index: 100000;
+  }
+
+  .vip-toast {
+    pointer-events: auto;
+    transform: translateY(-30px) scale(0.94);
+    opacity: 0;
+    padding: 5px 12px;
+    font-size: 0.70rem; /* Kích thước siêu nhỏ gọn, tinh tế trên điện thoại */
+    border-radius: 9999px; /* Dạng capsule thanh mảnh */
+    gap: 5px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 215, 0, 0.25);
+    max-width: 86vw;
+    background: rgba(18, 9, 30, 0.96);
+    border-width: 1px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    cursor: pointer;
+  }
+
+  .vip-toast.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  .toast-icon {
+    font-size: 0.80rem;
+    flex-shrink: 0;
+  }
+
+  .toast-msg {
+    font-size: 0.70rem;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: left;
+  }
+
+  /* Mission Banner nhỏ gọn trên Mobile */
+  .chapter-mission-banner {
+    padding: 6px 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    gap: 7px;
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+  }
+  .mission-banner-icon {
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+  .mission-badge {
+    font-size: 0.58rem;
+    margin-bottom: 1px;
+    letter-spacing: 0.4px;
+  }
+  .mission-desc {
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+  .mission-status-pill {
+    padding: 2px 7px;
+    font-size: 0.60rem;
+    gap: 3px;
+    white-space: nowrap;
+    border-radius: 9999px;
+  }
+
+  /* Tree Interactive Guide nhỏ gọn trên Mobile */
+  .tree-interactive-guide {
+    top: 55px;
+    width: 88%;
+    max-width: 320px;
+  }
+  .guide-floating-badge {
+    padding: 5px 10px;
+    border-radius: 9999px;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 12px rgba(255, 105, 180, 0.35);
+  }
+  .guide-hand-pointer {
+    font-size: 1rem;
+  }
+  .guide-text-content strong {
+    font-size: 0.70rem;
+    margin-bottom: 0;
+  }
+  .guide-text-content p {
+    display: none; /* Ẩn đoạn văn dài, chỉ giữ câu hướng dẫn súc tích */
+  }
+  .guide-dismiss-btn {
+    width: 18px;
+    height: 18px;
+    font-size: 0.60rem;
+  }
+
+  /* Tree Interaction Hint độc lập nhỏ gọn trên Mobile */
+  .tree-bottom-notice-bar {
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+  .tree-interaction-hint {
+    padding: 4px 12px;
+    font-size: 0.68rem;
+    line-height: 1.25;
+    border-radius: 9999px;
+    gap: 4px;
+    letter-spacing: 0.2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 105, 180, 0.2);
+  }
+  .tree-hint-desktop {
+    display: none;
+  }
+  .tree-hint-mobile {
+    display: inline;
+  }
+
+  /* Hint box trên màn hình khóa & thông báo mở khóa nhỏ gọn */
+  .lock-hint-box {
+    padding: 6px 10px;
+    font-size: 0.70rem;
+    border-radius: 8px;
+    margin-top: 6px;
+    line-height: 1.3;
+  }
+  .btn-hint-toggle {
+    font-size: 0.72rem;
+    padding: 3px 8px;
+  }
+  .lock-step-notice-card {
+    padding: 8px 10px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  .lock-step-notice-card .notice-title {
+    font-size: 0.82rem;
+  }
+  .lock-step-notice-card .notice-desc {
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+}
+
+/* Extra Small Phones (iPhone SE, Galaxy A series, màn hình dưới 375px) */
+@media (max-width: 375px) {
+  .hero-recipient-name {
+    font-size: 1.7rem;
+  }
+  .cd-box {
+    min-width: 44px;
+    padding: 6px 2px;
+  }
+  .cd-num {
+    font-size: 1.15rem;
+  }
+  .cd-sub {
+    font-size: 0.58rem;
+  }
+  .keypad-btn {
+    padding: 10px 0;
+    font-size: 1.15rem;
+  }
+  .lock-screen-card {
+    padding: 18px 12px 14px;
+  }
+  .memories-grid {
+    grid-template-columns: 1fr;
+  }
+  .vip-toast {
+    font-size: 0.66rem;
+    padding: 4px 10px;
+    max-width: 92vw;
+  }
+  .toast-msg {
+    font-size: 0.66rem;
+  }
+}
+
 

@@ -17,14 +17,14 @@
     "occasion": "20/10 - Ngày Phụ Nữ Việt Nam",
     "headerBadge": "✦ VIP SPECIAL DEDICATION ✦",
     "subGreeting": "Chúc em một ngày tràn ngập nụ cười, hạnh phúc và vạn điều như ý!",
-    "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+    "avatarUrl": "images/avatar.png",
     "eventDate": "2026-10-20T00:00:00",
     "relationshipStatus": "Tình yêu duy nhất"
   },
   "music": {
-    "title": "Until I Found You (Romantic Piano Lofi)",
-    "artist": "Stephen Sanchez (Instrumental)",
-    "url": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3",
+    "title": "Nàng Thơ - Hoàng Dũng",
+    "artist": "Hoàng Dũng",
+    "url": "audio/nang-tho.mp3",
     "autoPlayPrompt": true
   },
   "letter": {

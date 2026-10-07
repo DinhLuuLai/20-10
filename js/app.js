@@ -1453,7 +1453,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const tagSelect = document.getElementById("guest-tag");
 
       if (!nameInput.value.trim() || !msgInput.value.trim()) {
-        alert("Vui lòng điền tên và lời chúc của bạn nhé!");
+        if (window.adminManager && typeof window.adminManager.showToast === "function") {
+          window.adminManager.showToast("Vui lòng điền tên và lời chúc của bạn nhé!", "warning");
+        }
         return;
       }
 

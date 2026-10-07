@@ -238,6 +238,43 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Upload file âm thanh MP3
+  if (pathname === '/api/upload-audio' && req.method === 'POST') {
+    const audioDir = path.join(__dirname, 'audio');
+    if (!fs.existsSync(audioDir)) {
+      fs.mkdirSync(audioDir, { recursive: true });
+    }
+    const chunks = [];
+    req.on('data', chunk => {
+      chunks.push(chunk);
+      if (chunks.reduce((acc, cur) => acc + cur.length, 0) > 30 * 1024 * 1024) {
+        req.destroy();
+      }
+    });
+    req.on('end', () => {
+      try {
+        const buffer = Buffer.concat(chunks);
+        const fileName = 'nang-tho.mp3';
+        const targetPath = path.join(audioDir, fileName);
+        fs.writeFileSync(targetPath, buffer);
+        console.log('✅ Đã lưu file âm thanh:', targetPath, `(${buffer.length} bytes)`);
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Cache-Control': 'no-store, no-cache, must-revalidate'
+        });
+        res.end(JSON.stringify({
+          success: true,
+          url: 'audio/' + fileName,
+          message: 'Đã tải lên bài hát Nàng Thơ thành công!'
+        }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   if (pathname === '/api/db-status' && req.method === 'GET') {
     let dbSize = 0;
     if (fs.existsSync(DB_FILE)) {
