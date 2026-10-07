@@ -1441,7 +1441,7 @@
   <div class="docked-music-player" id="docked-music-player">
     <div class="music-disc-icon">🎵</div>
     <div class="music-info-text">
-      <span class="music-track-title">A Gentle Farewell (Piano)</span>
+      <span class="music-track-title" id="farewell-music-title">Nàng Thơ (Lofi Ver.) - Hoàng Dũng x Freak D</span>
       <span class="music-status-state" id="music-status-label">Chạm để phát nhạc</span>
     </div>
     <button type="button" class="btn-music-toggle" id="btn-music-toggle" title="Bật / Tắt nhạc">
@@ -1449,9 +1449,9 @@
     </button>
   </div>
 
-  <!-- Audio Element (Soft Melancholy Piano) -->
+  <!-- Audio Element -->
   <audio id="farewell-audio" preload="auto" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+    <source src="audio/nang-tho.mp3" type="audio/mpeg">
   </audio>
 
   <!-- =========================================================================
@@ -1537,51 +1537,91 @@
       });
     });
 
-    // --- 3. ĐIỀU KHIỂN NHẠC NỀN LOFI/PIANO ---
+    // --- 3. ĐIỀU KHIỂN NHẠC NỀN (NÀNG THƠ LOFI - HOÀNG DŨNG X FREAK D) ---
     const audio = document.getElementById("farewell-audio");
     const playerWidget = document.getElementById("docked-music-player");
     const toggleBtn = document.getElementById("btn-music-toggle");
     const statusLabel = document.getElementById("music-status-label");
+    const titleLabel = document.getElementById("farewell-music-title");
     let isPlaying = false;
+
+    // Lấy thông tin bài hát từ store / database nếu có
+    try {
+      const cfg = (window.appStore && typeof window.appStore.get === "function") 
+        ? window.appStore.get() 
+        : JSON.parse(localStorage.getItem("bo_2010_vip_config") || "{}");
+      if (cfg && cfg.music) {
+        if (cfg.music.title && titleLabel) titleLabel.textContent = cfg.music.title;
+        if (cfg.music.url && audio) {
+          audio.src = cfg.music.url;
+        }
+      }
+    } catch (e) {}
+
+    // Lặp vô tận bài hát
+    if (audio) {
+      audio.loop = true;
+      audio.addEventListener("ended", () => {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      });
+    }
+
+    function startPlayback() {
+      if (!audio) return;
+      audio.volume = 0.65;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isPlaying = true;
+          playerWidget?.classList.add("playing");
+          if (toggleBtn) toggleBtn.textContent = "⏸";
+          if (statusLabel) statusLabel.textContent = "Đang phát êm dịu";
+        }).catch((err) => {
+          console.warn("Autoplay was prevented by browser policy:", err);
+          isPlaying = false;
+          playerWidget?.classList.remove("playing");
+          if (toggleBtn) toggleBtn.textContent = "▶";
+          if (statusLabel) statusLabel.textContent = "Chạm để bật nhạc";
+        });
+      }
+    }
 
     function toggleAudio() {
       if (!audio) return;
       if (isPlaying) {
         audio.pause();
         isPlaying = false;
-        playerWidget.classList.remove("playing");
-        toggleBtn.textContent = "▶";
-        statusLabel.textContent = "Đã tạm dừng";
+        playerWidget?.classList.remove("playing");
+        if (toggleBtn) toggleBtn.textContent = "▶";
+        if (statusLabel) statusLabel.textContent = "Đã tạm dừng";
       } else {
-        audio.volume = 0.6;
-        audio.play().then(() => {
-          isPlaying = true;
-          playerWidget.classList.add("playing");
-          toggleBtn.textContent = "⏸";
-          statusLabel.textContent = "Đang phát êm dịu";
-        }).catch(err => {
-          console.warn("Autoplay restriction:", err);
-        });
+        startPlayback();
       }
     }
 
-    toggleBtn?.addEventListener("click", toggleAudio);
-    playerWidget?.addEventListener("click", (e) => {
-      if (e.target !== toggleBtn) toggleAudio();
+    toggleBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleAudio();
+    });
+    playerWidget?.addEventListener("click", () => {
+      toggleAudio();
     });
 
-    // Tự động thử phát khi click đầu tiên vào trang
-    window.addEventListener("click", () => {
+    // Thử tự động phát ngay khi trang mở
+    setTimeout(startPlayback, 100);
+
+    // Bắt tương tác đầu tiên (chạm màn hình, click, bấm phím) để phát ngay nếu bị trình duyệt chặn ban đầu
+    const triggerEvents = ["click", "touchstart", "touchend", "pointerdown", "keydown"];
+    function onFirstUserGesture() {
       if (!isPlaying && audio) {
-        audio.volume = 0.55;
-        audio.play().then(() => {
-          isPlaying = true;
-          playerWidget.classList.add("playing");
-          toggleBtn.textContent = "⏸";
-          statusLabel.textContent = "Đang phát êm dịu";
-        }).catch(() => {});
+        startPlayback();
       }
-    }, { once: true });
+      triggerEvents.forEach(evt => window.removeEventListener(evt, onFirstUserGesture));
+    }
+    triggerEvents.forEach(evt => {
+      window.addEventListener(evt, onFirstUserGesture, { passive: true });
+    });
 
     // --- 4. HÀNH ĐỘNG THIÊNG LIÊNG: KHÉP LẠI ĐOẠN ĐƯỜNG CŨ (FADEOUT VĨNH CỬU) ---
     const sacredBtn = document.getElementById("btn-trigger-closure");

@@ -3,8 +3,8 @@
   "audienceMode": "crush",
   "security": {
     "pin": "2010",
-    "entryPasscode": "2010",
-    "entryHint": "Ngày kỷ niệm đặc biệt (Ví dụ: 2010)"
+    "entryPasscode": "06072010",
+    "entryHint": "Ngày kỷ niệm đặc biệt (Ví dụ: 06072010)"
   },
   "theme": {
     "current": "royal-gold",

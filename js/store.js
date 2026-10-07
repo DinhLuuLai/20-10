@@ -98,8 +98,8 @@ const DEFAULT_CONFIG = {
   audienceMode: "crush", // "crush" (Người yêu: Anh - Em) hoặc "friend" (Bạn bè: Tớ - Cậu)
   security: {
     pin: "2010", // Mã PIN truy cập admin mặc định
-    entryPasscode: "2010", // Mật khẩu trang đầu mở khóa hành trình
-    entryHint: "Ngày kỷ niệm đặc biệt (Ví dụ: 2010)", // Gợi ý mật khẩu
+    entryPasscode: "06072010", // Mật khẩu trang đầu mở khóa hành trình
+    entryHint: "Ngày kỷ niệm đặc biệt (Ví dụ: 06072010)", // Gợi ý mật khẩu
   },
   theme: {
     current: "royal-gold", // 'royal-gold', 'rose-romance', 'cyber-luxe', 'emerald-prestige'

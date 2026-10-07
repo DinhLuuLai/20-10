@@ -501,22 +501,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function checkAutoSubmit() {
       const entered = input.value.trim();
-      const cfg = window.appStore.get();
-      const targetPass = (cfg.security && cfg.security.entryPasscode) ? cfg.security.entryPasscode.trim() : "2010";
 
-      // 1. Nhập mã đặc biệt chia tay & tri ân "06072010"
+      // 1. Nhập mã truy cập duy nhất hợp lệ "06072010" -> Tự động chuyển tới trang kỷ niệm
       if (entered === "06072010") {
         setTimeout(verifyEntryPasscode, 80);
         return;
       }
 
-      // 2. Nhập mã mở trang chủ ("2010" hoặc mã admin cấu hình)
-      if (entered === "2010" || entered === targetPass) {
-        setTimeout(verifyEntryPasscode, 80);
-        return;
-      }
-
-      // 3. Đã gõ chạm mốc 8 ký tự mà không khớp bất kỳ mã nào
+      // 2. Đã gõ chạm mốc 8 ký tự mà không khớp mã nào
       if (entered.length >= 8) {
         setTimeout(verifyEntryPasscode, 150);
         return;
@@ -569,11 +561,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function verifyEntryPasscode() {
       if (isRedirecting) return;
       const cfg = window.appStore.get();
-      const targetPass = (cfg.security && cfg.security.entryPasscode) ? cfg.security.entryPasscode.trim() : "2010";
       const entered = input.value.trim();
       const isFriend = (cfg.audienceMode === "friend");
 
-      // TRƯỜNG HỢP 1: MÃ ĐẶC BIỆT "06072010" -> CHUYỂN TỚI TRANG KỶ NIỆM & TRI ÂN (farewell.html)
+      // TRƯỜNG HỢP 1: MÃ TRUY CẬP DUY NHẤT "06072010" -> CHUYỂN TỚI TRANG KỶ NIỆM & TRI ÂN (farewell.html)
       if (entered === "06072010") {
         isRedirecting = true;
         if (window.audioManager) {
@@ -598,18 +589,23 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // TRƯỜNG HỢP 2: MÃ TRANG CHỦ "2010" HOẶC MÃ CẤU HÌNH -> MỞ KHÓA
-      if (entered === "2010" || entered === targetPass) {
-        // KIỂM TRA: NẾU LÀ TRANG CHIA SẺ RIÊNG BIỆT (URL ?s=id)
-        // Toàn bộ tên, xưng hô, ảnh, thư đã được người tạo cấu hình sẵn
-        // Người nhận KHÔNG CẦN chọn chế độ hay nhập gì cả -> MỞ KHÓA VÀ VÀO THẲNG!
-        if (window.appStore.isSharedPage) {
-          unlockAndEnterSite();
-          return;
+      // TRƯỜNG HỢP 2: MẬT MÃ "2010" TẠM THỜI ĐÃ BỊ KHÓA
+      if (entered === "2010") {
+        if (window.audioManager) window.audioManager.playSfx("pop");
+        const card = lockScreen.querySelector(".lock-screen-card");
+        if (card) {
+          card.classList.remove("shake-locked");
+          void card.offsetWidth;
+          card.classList.add("shake-locked");
+          setTimeout(() => card.classList.remove("shake-locked"), 500);
         }
-
-        // NẾU LÀ TRANG CHỦ BÌNH THƯỜNG -> HIỆN BƯỚC 2: NHẬP TÊN & CHỌN DANH PHẬN
-        showProfileStep();
+        if (window.adminManager) {
+          window.adminManager.showToast("🔒 Mật mã '2010' tạm thời đã bị khóa! Vui lòng nhập mã: 06072010", "warning");
+        }
+        setTimeout(() => {
+          input.value = "";
+          updateDots();
+        }, 450);
         return;
       }
 

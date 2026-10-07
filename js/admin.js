@@ -230,10 +230,10 @@ class AdminManager {
     // Tab 4: Security
     document.getElementById("cfg-admin-pin").value = config.security.pin || "2010";
     if (document.getElementById("cfg-entry-passcode")) {
-      document.getElementById("cfg-entry-passcode").value = config.security.entryPasscode || "2010";
+      document.getElementById("cfg-entry-passcode").value = config.security.entryPasscode || "06072010";
     }
     if (document.getElementById("cfg-entry-hint")) {
-      document.getElementById("cfg-entry-hint").value = config.security.entryHint || "Ngày kỷ niệm đặc biệt của chúng mình (Ví dụ: 2010)";
+      document.getElementById("cfg-entry-hint").value = config.security.entryHint || "Ngày kỷ niệm đặc biệt (Ví dụ: 06072010)";
     }
 
     // Dynamic Lists
@@ -1183,8 +1183,8 @@ class AdminManager {
     const particleMode = document.getElementById("cfg-particle-mode").value;
 
     const adminPin = document.getElementById("cfg-admin-pin")?.value.trim() || "2010";
-    const entryPasscode = document.getElementById("cfg-entry-passcode")?.value.trim() || "2010";
-    const entryHint = document.getElementById("cfg-entry-hint")?.value.trim() || "Ngày kỷ niệm đặc biệt của chúng mình (Ví dụ: 2010)";
+    const entryPasscode = document.getElementById("cfg-entry-passcode")?.value.trim() || "06072010";
+    const entryHint = document.getElementById("cfg-entry-hint")?.value.trim() || "Ngày kỷ niệm đặc biệt (Ví dụ: 06072010)";
 
     const audienceMode = document.getElementById("cfg-audience-mode")?.value || "crush";
 
@@ -1409,8 +1409,8 @@ class AdminManager {
     const particleMode = document.getElementById("cfg-particle-mode")?.value;
 
     const adminPin = document.getElementById("cfg-admin-pin")?.value.trim() || "2010";
-    const entryPasscode = document.getElementById("cfg-entry-passcode")?.value.trim() || "2010";
-    const entryHint = document.getElementById("cfg-entry-hint")?.value.trim() || "Ngày kỷ niệm đặc biệt của chúng mình (Ví dụ: 2010)";
+    const entryPasscode = document.getElementById("cfg-entry-passcode")?.value.trim() || "06072010";
+    const entryHint = document.getElementById("cfg-entry-hint")?.value.trim() || "Ngày kỷ niệm đặc biệt (Ví dụ: 06072010)";
 
     const audienceMode = document.getElementById("cfg-audience-mode")?.value || "crush";
 
