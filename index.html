@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trang web vinh danh & gửi lời chúc VIP sang trọng với âm nhạc, hiệu ứng 3D và bảng điều khiển quản trị viên độc quyền.">
+  <title>VIP Dedication ✦ Đặc Quyền Yêu Thương</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-royal-gold">
+
+  <!-- Canvas hiệu ứng hạt rơi 60FPS -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Màn Chuyển Cảnh Phép Thuật (Cinematic Sakura Light Portal Curtain) -->
+  <div id="page-transition-curtain">
+    <div class="curtain-portal-core"></div>
+    <div class="curtain-light-beam"></div>
+  </div>
+
+  <!-- MÀN HÌNH KHÓA TRANG ĐẦU: CÁNH CỬA TRÁI TIM BÍ MẬT (VIP GATEKEEPER PASSCODE SCREEN) -->
+  <div id="entry-lock-screen" class="entry-lock-screen active">
+    <div class="lock-screen-card glass-panel">
+      <div class="lock-avatar-glow">
+        <div class="lock-heart-icon" id="lock-heart-icon">💖</div>
+        <div class="lock-glow-ring"></div>
+      </div>
+      
+      <div class="lock-badge" id="lock-badge-tag">✦ BẢO MẬT ĐẶC QUYỀN VIP ✦</div>
+      <h2 class="lock-title gold-text" id="lock-title-text">Cánh Cửa Trái Tim</h2>
+      <p class="lock-desc" id="lock-desc-text">
+        Trang web được thiết kế đặc biệt dành riêng cho một người. Vui lòng nhập mật mã yêu thương để mở khóa hành trình.
+      </p>
+
+      <!-- BƯỚC 1: NHẬP MẬT MÃ MỞ KHÓA -->
+      <div id="lock-step-passcode" class="lock-step active">
+        <!-- Form nhập mã PIN -->
+        <div class="passcode-input-wrapper">
+          <div class="passcode-dots" id="entry-passcode-dots">
+            <span class="p-dot"></span>
+            <span class="p-dot"></span>
+            <span class="p-dot"></span>
+            <span class="p-dot"></span>
+            <span class="p-dot"></span>
+            <span class="p-dot"></span>
+            <span class="p-dot"></span>
+            <span class="p-dot"></span>
+          </div>
+          <input type="password" id="entry-passcode-input" class="passcode-hidden-input" maxlength="8" autocomplete="off" placeholder="Nhập mật khẩu..." autofocus>
+          <button type="button" class="btn-toggle-passcode" id="btn-toggle-entry-pwd" title="Hiện/Ẩn mật khẩu">👁️</button>
+        </div>
+
+        <!-- Bàn phím số nhanh (Numeric Keypad) -->
+        <div class="keypad-grid">
+          <button type="button" class="keypad-btn" data-key="1">1</button>
+          <button type="button" class="keypad-btn" data-key="2">2</button>
+          <button type="button" class="keypad-btn" data-key="3">3</button>
+          <button type="button" class="keypad-btn" data-key="4">4</button>
+          <button type="button" class="keypad-btn" data-key="5">5</button>
+          <button type="button" class="keypad-btn" data-key="6">6</button>
+          <button type="button" class="keypad-btn" data-key="7">7</button>
+          <button type="button" class="keypad-btn" data-key="8">8</button>
+          <button type="button" class="keypad-btn" data-key="9">9</button>
+          <button type="button" class="keypad-btn keypad-func" id="btn-keypad-clear">Xóa</button>
+          <button type="button" class="keypad-btn" data-key="0">0</button>
+          <button type="button" class="keypad-btn keypad-func" id="btn-keypad-back">⌫</button>
+        </div>
+
+        <div class="lock-actions">
+          <button type="button" class="vip-btn vip-btn-primary" id="btn-submit-entry-passcode" style="width: 100%;">
+            <span>Mở Cánh Cửa Yêu Thương</span> <span>✨ ❯</span>
+          </button>
+          <button type="button" class="btn-hint-toggle" id="btn-entry-hint-toggle">
+            <span>💡</span> <span>Gợi ý mật mã?</span>
+          </button>
+          <div class="lock-hint-box" id="entry-hint-box" style="display: none;">
+            <span id="entry-hint-text">Gợi ý: Ngày kỷ niệm đặc biệt của chúng mình (Ví dụ: 2010)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BƯỚC 2: NHẬP TÊN + CHỌN DANH PHẬN (Hiện sau khi nhập đúng pass ở trang chủ) -->
+      <div id="lock-step-profile" class="lock-step" style="display: none; animation: elementFloatIn 0.5s ease both;">
+        <div style="background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.25); border-radius: 14px; padding: 12px 16px; margin-bottom: 18px;">
+          <div style="color: var(--accent-gold); font-size: 0.95rem; font-weight: 700; margin-bottom: 4px;">
+            🎉 Mật Mã Chính Xác!
+          </div>
+          <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;">
+            Hãy cho chúng mình biết họ tên và danh phận để website cá nhân hóa toàn bộ xưng hô và nội dung dành riêng cho bạn:
+          </div>
+        </div>
+
+        <!-- Nhập Họ & Tên -->
+        <div style="margin-bottom: 16px; text-align: left;">
+          <label for="entry-recipient-fullname" style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 6px;">
+            ✍️ Họ và Tên của bạn:
+          </label>
+          <input type="text" id="entry-recipient-fullname" class="form-input" placeholder="Ví dụ: Nguyễn Ngọc Ánh" value="Nguyễn Ngọc Ánh" style="width: 100%; text-align: center; font-size: 1.05rem; font-weight: 700; color: #ffd700; padding: 10px 14px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,215,0,0.4); border-radius: 12px;">
+        </div>
+
+        <!-- Chọn Danh phận / Mối quan hệ -->
+        <div class="lock-mode-selector-wrap" style="margin-bottom: 22px;">
+          <span class="lock-mode-label">✦ Danh phận / Mối quan hệ:</span>
+          <div class="lock-mode-selector" id="lock-mode-selector">
+            <button type="button" class="lock-mode-btn active" data-mode="crush" id="btn-lock-mode-crush">
+              <span class="mode-icon">💖</span>
+              <span class="mode-text">Người Yêu (Anh - Em)</span>
+            </button>
+            <button type="button" class="lock-mode-btn" data-mode="friend" id="btn-lock-mode-friend">
+              <span class="mode-icon">🌸</span>
+              <span class="mode-text">Bạn Bè (Tớ - Cậu)</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="vip-btn vip-btn-primary" id="btn-confirm-entry-profile" style="width: 100%; padding: 12px 20px; font-size: 0.98rem;">
+          <span>Bước Vào Không Gian Đặc Quyền</span> <span>✨ ❯</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="site-container">
+
+    <!-- 1. HEADER CHÍNH -->
+    <header class="vip-header">
+      <div class="vip-brand" id="admin-secret-logo-trigger" title="Nhấp 3 lần để mở Quản trị bí mật">
+        <span class="vip-logo-crown">👑</span>
+        <div>
+          <h1 class="vip-brand-text">VIP TRIBUTE</h1>
+          <small style="font-size: 0.68rem; color: var(--accent-gold); letter-spacing: 1px; display: block;">EDITION PRESTIGE</small>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+          <span>✦</span> <span id="header-dedication-tag">Đặc Quyền Dành Riêng Cho Em</span> <span>✦</span>
+        </div>
+        <button type="button" class="btn-toggle-audience-mode" id="btn-toggle-audience-mode" title="Nhấn để đổi cách xưng hô (Người Yêu: Anh - Em / Bạn Bè: Tớ - Cậu)">
+          <span class="mode-badge-icon" id="header-mode-icon">💖</span>
+          <span class="mode-badge-text" id="header-mode-text">Người Yêu (Anh - Em)</span>
+          <span class="mode-badge-switch">⇄</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- THANH ĐIỀU HƯỚNG CHUYỂN TRANG VIP (MULTI-PAGE CHAPTER NAVBAR) -->
+    <nav class="vip-page-navbar" id="vip-page-navbar">
+      <button type="button" class="nav-page-btn active" data-page="welcome" id="nav-btn-welcome">
+        <span class="nav-btn-icon">👑</span> <span class="nav-btn-text">Lời Chào</span>
+      </button>
+      <button type="button" class="nav-page-btn is-locked" data-page="tree" id="nav-btn-tree">
+        <span class="nav-btn-icon">🔒</span> <span class="nav-btn-text">Cây Nguyện Ước 3D</span>
+      </button>
+      <button type="button" class="nav-page-btn is-locked" data-page="letter" id="nav-btn-letter">
+        <span class="nav-btn-icon">🔒</span> <span class="nav-btn-text">Tâm Thư</span>
+      </button>
+      <button type="button" class="nav-page-btn is-locked" data-page="wishes" id="nav-btn-wishes">
+        <span class="nav-btn-icon">🔒</span> <span class="nav-btn-text">Lời Chúc</span>
+      </button>
+    </nav>
+
+    <!-- TIẾN TRÌNH LỘ TRÌNH CỐ ĐỊNH (JOURNEY ROADMAP TRACKER) -->
+    <div class="journey-roadmap-tracker" id="journey-roadmap-tracker">
+      <div class="roadmap-header">
+        <div class="roadmap-badge-title">
+          <span>✨</span> <span>LỘ TRÌNH TRẢI NGHIỆM ĐẶC QUYỀN (4 CHƯƠNG)</span>
+        </div>
+        <div class="roadmap-progress-percent" id="roadmap-progress-percent">Tiến độ: 25%</div>
+      </div>
+      <div class="roadmap-track-container">
+        <div class="roadmap-track-line">
+          <div class="roadmap-track-fill" id="roadmap-track-fill" style="width: 25%;"></div>
+        </div>
+        <div class="roadmap-steps">
+          <div class="roadmap-step completed active" data-step="welcome" id="step-node-welcome">
+            <div class="step-circle" title="Chương 1: Lời Chào Mở Đầu">
+              <span>👑</span>
+              <span class="step-check-badge">✓</span>
+            </div>
+            <div class="step-info">
+              <span class="step-title">Chương 1</span>
+              <span class="step-sub">Lời Chào</span>
+            </div>
+          </div>
+          <div class="roadmap-step locked" data-step="tree" id="step-node-tree">
+            <div class="step-circle" title="Chương 2: Cây Nguyện Ước 3D">
+              <span class="step-node-icon">🌸</span>
+              <span class="step-check-badge">✓</span>
+            </div>
+            <div class="step-info">
+              <span class="step-title">Chương 2</span>
+              <span class="step-sub">Cây Nguyện Ước</span>
+            </div>
+          </div>
+          <div class="roadmap-step locked" data-step="letter" id="step-node-letter">
+            <div class="step-circle" title="Chương 3: Bức Tâm Thư Hoàng Gia">
+              <span class="step-node-icon">💌</span>
+              <span class="step-check-badge">✓</span>
+            </div>
+            <div class="step-info">
+              <span class="step-title">Chương 3</span>
+              <span class="step-sub">Bức Tâm Thư</span>
+            </div>
+          </div>
+          <div class="roadmap-step locked" data-step="wishes" id="step-node-wishes">
+            <div class="step-circle" title="Chương 4: Vạn Lời Chúc Tốt Lành">
+              <span class="step-node-icon">✨</span>
+              <span class="step-check-badge">✓</span>
+            </div>
+            <div class="step-info">
+              <span class="step-title">Chương 4</span>
+              <span class="step-sub">Vạn Lời Chúc</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         TRANG 1: LỜI CHÀO ĐẦU & TÔN VINH (WELCOME & HERO)
+         ========================================================================= -->
+    <div class="page-section active" id="page-welcome">
+      <section class="hero-section" id="section-hero">
+        <div class="hero-badge" id="hero-badge">
+          <span>✦</span> VIP SPECIAL DEDICATION <span>✦</span>
+        </div>
+
+        <div class="hero-avatar-wrapper">
+          <div class="hero-avatar-ring"></div>
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" 
+               alt="Avatar Người Nhận" 
+               class="hero-avatar-img" 
+               id="hero-avatar">
+        </div>
+
+        <p class="hero-title-greeting">Dành tặng riêng cho</p>
+        <h1 class="hero-recipient-name gold-text" id="hero-name">Nguyễn Ngọc Ánh</h1>
+        <span class="hero-nickname" id="hero-nickname">"Công Chúa Của Anh"</span>
+        <div class="hero-occasion-badge" id="hero-occasion">20/10 - Ngày Phụ Nữ Việt Nam</div>
+        <p class="hero-subgreeting" id="hero-subgreeting">
+          Chúc em một ngày tràn ngập nụ cười, hạnh phúc và vạn điều như ý!
+        </p>
+
+        <!-- ĐẾM NGƯỢC THỜI GIAN -->
+        <div class="countdown-container glass-panel">
+          <div class="countdown-label" id="cd-label">ĐẾM NGƯỢC ĐẾN KHOẢNH KHẮC ĐẶC BIỆT</div>
+          <div class="countdown-digits">
+            <div class="cd-box">
+              <span class="cd-num" id="cd-days">00</span>
+              <span class="cd-sub">Ngày</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-box">
+              <span class="cd-num" id="cd-hours">00</span>
+              <span class="cd-sub">Giờ</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-box">
+              <span class="cd-num" id="cd-mins">00</span>
+              <span class="cd-sub">Phút</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-box">
+              <span class="cd-num" id="cd-secs">00</span>
+              <span class="cd-sub">Giây</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chuyển trang footer -->
+        <div class="page-footer-nav">
+          <div style="color: var(--text-muted); font-size: 0.9rem;">
+            ✦ Chương 1 / 4: Lời Chào Mở Đầu ✦
+          </div>
+          <div class="page-step-dots">
+            <span class="step-dot active" data-page="welcome"></span>
+            <span class="step-dot" data-page="tree"></span>
+            <span class="step-dot" data-page="letter"></span>
+            <span class="step-dot" data-page="wishes"></span>
+          </div>
+          <button type="button" class="btn-page-nav btn-page-next" id="btn-welcome-next" data-go-page="tree">
+            <span>Khám Phá Cây Nguyện Ước 3D</span> <span>🌸 ❯</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         TRANG 2: CÂY ANH ĐÀO NGUYỆN ƯỚC 3D (3D SAKURA TREE & PANDA)
+         ========================================================================= -->
+    <div class="page-section" id="page-tree">
+      <section class="section-wrapper tree-3d-section" id="section-tree3d" style="padding-top: 10px;">
+        <div class="section-header">
+          <span class="section-tag">Kiệt Tác 3D Tuyệt Sắc</span>
+          <h2 class="section-title gold-text">Cây Anh Đào Nguyện Ước Dưới Trăng</h2>
+          <p class="section-subtitle">
+            Vầng trăng tròn soi bóng qua tán hoa anh đào rực rỡ, bé gấu trúc đáng yêu ngồi ôm trái tim đang đập bập bùng cùng những bức tâm thư đung đưa theo gió.
+          </p>
+        </div>
+
+        <!-- BANNER NHIỆM VỤ MỞ KHÓA CHƯƠNG 3 -->
+        <div class="chapter-mission-banner" id="tree-mission-banner">
+          <div class="mission-banner-icon">🐼</div>
+          <div class="mission-banner-body">
+            <div class="mission-badge">✦ NHIỆM VỤ MỞ KHÓA CHƯƠNG 3 ✦</div>
+            <p class="mission-desc">
+              Chạm vào <strong>Bé Gấu Trúc Ôm Tim 🐼</strong> hoặc mở 1 <strong>Bức Tâm Thư Treo Cành Cây 🌸</strong> để hoàn thành thử thách và mở khóa Bức Tâm Thư Hoàng Gia!
+            </p>
+          </div>
+          <div class="mission-status-pill" id="tree-mission-status">
+            <span class="status-icon">🔒</span> <span class="status-text">Chưa Hoàn Thành</span>
+          </div>
+        </div>
+
+        <div class="tree-3d-wrapper">
+          <!-- 3D Canvas Stage -->
+          <div id="sakura-tree-3d-stage"></div>
+
+          <!-- Gợi ý tương tác nổi sinh động (Interactive Animated Guide Callout) -->
+          <div class="tree-interactive-guide" id="tree-interactive-guide">
+            <div class="guide-floating-badge">
+              <span class="guide-hand-pointer">👉</span>
+              <div class="guide-text-content">
+                <strong>✨ Hãy nhấp vào một tấm thư, quả bóng bay hoặc chạm bé gấu trúc!</strong>
+                <p>Khám phá điều ước bí mật trên cành cây hoặc nhận lời thì thầm từ bé gấu trúc 🐼</p>
+              </div>
+              <button type="button" class="guide-dismiss-btn" id="btn-dismiss-guide" title="Đóng gợi ý">✕</button>
+            </div>
+          </div>
+
+          <!-- HUD Controls -->
+          <div class="tree-hud-overlay">
+            <div class="tree-hud-badge">
+              <span>🌸</span> <span>Đang treo: <strong id="hud-letter-count">11</strong> tấm thư</span>
+            </div>
+            <div class="tree-hud-actions">
+              <button type="button" class="tree-hud-btn active" id="btn-tree-autorotate">
+                <span>🔄</span> <span>Tự Xoay: BẬT</span>
+              </button>
+              <button type="button" class="tree-hud-btn" id="btn-tree-reset">
+                <span>🎯</span> <span>Góc Nhìn Gốc</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- THÔNG BÁO HƯỚNG DẪN TƯƠNG TÁC ĐỘC LẬP - ĐẶT NGOÀI KHUNG 3D, KHÔNG BỊ ĐÈ -->
+        <div class="tree-bottom-notice-bar">
+          <div class="tree-interaction-hint">
+            ✦ Click vào Bé Gấu Trúc để nhận lời chúc • Click vào lá thư / bóng bay để mở • Kéo chuột xoay 3D ✦
+          </div>
+        </div>
+
+        <!-- Quick Selector Pills -->
+        <div class="tree-letters-quick-container">
+          <div class="tree-letters-quick-title">✦ Danh Sách Các Bức Thư Treo Trên Cây ✦</div>
+          <div class="tree-letters-quick-tags" id="tree-letters-quick-tags">
+            <!-- Render động từ app.js -->
+          </div>
+        </div>
+
+        <!-- Chuyển trang footer -->
+        <div class="page-footer-nav">
+          <button type="button" class="btn-page-nav btn-page-prev" data-go-page="welcome">
+            <span>❮ 👑</span> <span>Lời Chào Đầu</span>
+          </button>
+          <div class="page-step-dots">
+            <span class="step-dot" data-page="welcome"></span>
+            <span class="step-dot active" data-page="tree"></span>
+            <span class="step-dot" data-page="letter"></span>
+            <span class="step-dot" data-page="wishes"></span>
+          </div>
+          <button type="button" class="btn-page-nav btn-page-next btn-locked" id="btn-tree-next" data-go-page="letter">
+            <span class="btn-lock-icon">🔒</span> <span class="btn-label">Chưa Mở Khóa (Hãy mở thư hoặc chạm gấu)</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         TRANG 3: BỨC TÂM THƯ 3D HOÀNG GIA (LOVE LETTER)
+         ========================================================================= -->
+    <div class="page-section" id="page-letter">
+      <section class="section-wrapper" id="section-letter" style="padding-top: 10px;">
+        <div class="section-header">
+          <span class="section-tag">Tâm Thư Chân Thành</span>
+          <h2 class="section-title gold-text">Bức Thư Gửi Riêng Em</h2>
+          <p class="section-subtitle">Chạm vào phong bì hoàng gia bên dưới để mở ra những lời thì thầm ngọt ngào nhất.</p>
+        </div>
+
+        <!-- BANNER NHIỆM VỤ MỞ KHÓA CHƯƠNG 4 -->
+        <div class="chapter-mission-banner" id="letter-mission-banner">
+          <div class="mission-banner-icon">💌</div>
+          <div class="mission-banner-body">
+            <div class="mission-badge">✦ NHIỆM VỤ MỞ KHÓA CHƯƠNG 4 ✦</div>
+            <p class="mission-desc">
+              Chạm vào <strong>Phong Bì Hoàng Gia 👑</strong> bên dưới để mở bức thư tình yêu và giải mã Chương cuối cùng - Vạn Lời Chúc VIP!
+            </p>
+          </div>
+          <div class="mission-status-pill" id="letter-mission-status">
+            <span class="status-icon">🔒</span> <span class="status-text">Chưa Mở Bức Thư</span>
+          </div>
+        </div>
+
+        <div class="letter-section">
+          <!-- Lớp phủ làm mờ xung quanh khi mở thư (Backdrop Blur Overlay) -->
+          <div class="letter-backdrop-blur" id="letter-backdrop-blur" title="Nhấp để đóng thư"></div>
+
+          <div class="envelope-container" id="envelope-container">
+            <!-- 1. PHONG BÌ HOÀNG GIA CHƯA MỞ (SEALED ROYAL ENVELOPE) -->
+            <div class="sealed-envelope-card" id="sealed-envelope-card">
+              <!-- Nền phong bì phía sau -->
+              <div class="envelope-bg-back"></div>
+
+              <!-- TẤM THƯ GẬP BÊN TRONG PHONG BÌ - BAY TỪ TỪ RA NGOÀI KHI MỞ -->
+              <div class="folded-letter-slip" id="folded-letter-slip">
+                <div class="slip-inner-decor">
+                  <div class="slip-seal-crown">👑</div>
+                  <div class="slip-ribbon-tag">✦ TÂM THƯ GỬI RIÊNG EM ✦</div>
+                  <div class="slip-preview-quote">"Từng nét chữ đong đầy yêu thương & bình an..."</div>
+                  <div class="slip-dummy-lines">
+                    <span class="dline"></span>
+                    <span class="dline"></span>
+                    <span class="dline short"></span>
+                  </div>
+                  <div class="slip-wax-badge">20/10 VIP</div>
+                </div>
+              </div>
+
+              <!-- Nắp gập tam giác phong bì -->
+              <div class="envelope-flap-triangle" id="envelope-flap-triangle"></div>
+              
+              <!-- Con dấu sáp hoàng gia 3D ở chính giữa nắp phong bì -->
+              <div class="wax-seal-badge" id="wax-seal-badge">
+                <span class="seal-icon">👑</span>
+                <span class="seal-tag">20/10</span>
+              </div>
+
+              <!-- Mặt trước phong bì với tem bưu thiếp & dải ruy-băng vàng -->
+              <div class="envelope-front-layer">
+                <div class="envelope-gold-ribbon"></div>
+                <div class="envelope-stamp-vintage">
+                  <span class="stamp-icon">🌸</span>
+                  <span class="stamp-text">20/10 VIP</span>
+                </div>
+                <div class="envelope-address-card">
+                  <span class="addr-label">✦ Kính gửi ✦</span>
+                  <h3 class="addr-name" id="envelope-addr-name">Nguyễn Ngọc Ánh</h3>
+                  <p class="addr-desc">Người phụ nữ tuyệt vời nhất trong lòng anh</p>
+                </div>
+              </div>
+
+              <!-- Lời mời chạm vào mở thư nhấp nháy dễ thương -->
+              <div class="envelope-click-prompt">
+                <span class="prompt-icon">💌</span>
+                <span class="prompt-text">Chạm vào phong bì để mở bức thư tình yêu</span>
+              </div>
+            </div>
+
+            <!-- 2. BỨC THƯ BÊN TRONG ĐƯỢC ZOOM LÊN VÀ MỞ RA (CINEMATIC UNFOLDED LETTER) -->
+            <div class="unfolded-letter-wrapper" id="unfolded-letter-wrapper">
+              <div class="royal-letter-paper">
+                <button type="button" class="btn-fold-letter" id="btn-fold-letter" title="Gập bức thư lại">
+                  <span>✕</span> <span>Gập Thư</span>
+                </button>
+                <div class="letter-header-decor">
+                  <span class="decor-flourish">❦</span>
+                  <span class="decor-badge">✦ BỨC TÂM THƯ HOÀNG GIA ✦</span>
+                  <span class="decor-flourish">❦</span>
+                </div>
+                <h3 class="letter-title" id="letter-view-title">Gửi Đến Em - Người Phụ Nữ Tuyệt Vời Nhất</h3>
+                <div class="letter-divider-gold"></div>
+                <div class="letter-body" id="letter-view-content">
+                  <!-- Nội dung thư từ store -->
+                </div>
+                <div class="letter-footer-area">
+                  <div class="letter-stamp-seal">
+                    <span class="seal-ring">20/10</span>
+                    <span class="seal-word">VIP</span>
+                  </div>
+                  <div class="letter-signature-block">
+                    <span class="letter-date-sign">Kỷ niệm 20/10/2026</span>
+                    <span class="letter-sender" id="letter-view-sender">— Người luôn thương em</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chuyển trang footer -->
+        <div class="page-footer-nav">
+          <button type="button" class="btn-page-nav btn-page-prev" data-go-page="tree">
+            <span>❮ 🌸</span> <span>Cây Nguyện Ước 3D</span>
+          </button>
+          <div class="page-step-dots">
+            <span class="step-dot" data-page="welcome"></span>
+            <span class="step-dot" data-page="tree"></span>
+            <span class="step-dot active" data-page="letter"></span>
+            <span class="step-dot" data-page="wishes"></span>
+          </div>
+          <button type="button" class="btn-page-nav btn-page-next btn-locked" id="btn-letter-next" data-go-page="wishes">
+            <span class="btn-lock-icon">🔒</span> <span class="btn-label">Chưa Mở Khóa (Hãy chạm mở phong bì)</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         TRANG 4: TƯỜNG LỜI CHÚC VIP & GỬI LỜI CHÚC (WISHES WALL)
+         ========================================================================= -->
+    <div class="page-section" id="page-wishes">
+      <section class="section-wrapper" id="section-wishes" style="padding-top: 10px;">
+        <div class="section-header">
+          <span class="section-tag">Thế Giới Nguyện Cầu</span>
+          <h2 class="section-title gold-text">Vạn Điều Tốt Lành</h2>
+          <p class="section-subtitle">Tất cả những tinh hoa và may mắn trên thế giới này đều hội tụ về đây dành riêng cho em.</p>
+        </div>
+
+        <!-- BANNER HOÀN THÀNH 100% LỘ TRÌNH -->
+        <div class="chapter-mission-banner completed-banner" id="wishes-mission-banner">
+          <div class="mission-banner-icon">👑</div>
+          <div class="mission-banner-body">
+            <div class="mission-badge">✦ HOÀN THÀNH 100% LỘ TRÌNH VIP ✦</div>
+            <p class="mission-desc">
+              Chúc mừng em đã đi trọn vẹn hành trình yêu thương! Mọi chương hiện đã được mở khóa tự do để em ngắm nhìn bất kỳ lúc nào.
+            </p>
+          </div>
+          <div class="mission-status-pill completed">
+            <span class="status-icon">🏆</span> <span class="status-text">Đạt 100% Lộ Trình</span>
+          </div>
+        </div>
+
+        <!-- Bộ lọc thẻ lời chúc -->
+        <div class="wishes-filter-wrapper" id="wishes-tags-filter">
+          <!-- Render động từ js -->
+        </div>
+
+        <!-- Lưới lời chúc -->
+        <div class="wishes-grid" id="wishes-grid">
+          <!-- Render động từ js -->
+        </div>
+
+        <!-- Form gửi lời chúc từ bạn bè / khách -->
+        <div class="guest-wish-card glass-panel">
+          <h3 style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 8px; color: var(--accent-gold);">
+            ✍️ Gửi Lời Chúc Của Bạn Đến Nhân Vật Chính
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 24px;">
+            Hãy để lại những tâm tư tốt đẹp nhất, lời chúc sẽ hiển thị ngay lập tức trên trang!
+          </p>
+
+          <form id="guest-wish-form">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group">
+                <label class="form-label" for="guest-name">Tên của bạn</label>
+                <input type="text" id="guest-name" class="form-input" placeholder="Ví dụ: Bạn thân, Tri kỷ..." required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="guest-tag">Chủ đề</label>
+                <select id="guest-tag" class="form-select">
+                  <option value="Hạnh Phúc">💖 Hạnh Phúc</option>
+                  <option value="Vẻ Đẹp">✨ Vẻ Đẹp</option>
+                  <option value="Thành Công">💎 Thành Công</option>
+                  <option value="May Mắn">🍀 May Mắn</option>
+                  <option value="Đặc Quyền">👑 Đặc Quyền</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="guest-msg">Nội dung lời chúc</label>
+              <textarea id="guest-msg" class="form-textarea" rows="3" placeholder="Nhập những lời chúc chân thành nhất..." required></textarea>
+            </div>
+            <button type="submit" class="vip-btn vip-btn-primary" style="width: 100%;">
+              <span>🚀</span> <span>Đăng Lời Chúc Lên Tường Vinh Danh</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Chuyển trang footer -->
+        <div class="page-footer-nav">
+          <button type="button" class="btn-page-nav btn-page-prev" data-go-page="letter">
+            <span>❮ 💌</span> <span>Bức Tâm Thư</span>
+          </button>
+          <div class="page-step-dots">
+            <span class="step-dot" data-page="welcome"></span>
+            <span class="step-dot" data-page="tree"></span>
+            <span class="step-dot" data-page="letter"></span>
+            <span class="step-dot active" data-page="wishes"></span>
+          </div>
+          <button type="button" class="btn-page-nav btn-page-next" id="btn-wishes-finish" data-go-page="welcome">
+            <span>Xem Lại Từ Đầu</span> <span>👑 ↺</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- 8. FOOTER -->
+    <footer class="vip-footer">
+      <div class="footer-secret-lock" id="admin-secret-footer-trigger" title="Mở trang Quản trị">
+        🔐
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- FLOATING MUSIC PLAYER -->
+  <div class="floating-music-bar">
+    <div class="music-disc" id="music-cd-disc">🎵</div>
+    <div class="music-meta">
+      <div class="music-title" id="music-current-title">Romantic Melody</div>
+      <canvas id="audio-visualizer" width="90" height="18"></canvas>
+    </div>
+    <button type="button" class="music-toggle-btn" id="music-toggle-btn" title="Phát / Dừng nhạc">
+      ▶
+    </button>
+  </div>
+
+  <!-- AUTOPLAY PROMPT BANNER -->
+  <div class="music-autoplay-prompt" id="music-autoplay-prompt">
+    <span>🎵 Bật nhạc nền lofi du dương nhé?</span>
+    <button class="vip-btn vip-btn-primary" style="padding: 6px 14px; font-size: 0.8rem;" id="btn-accept-music">Bật Nhạc</button>
+    <button class="btn-icon text-muted" id="btn-dismiss-music">✕</button>
+  </div>
+
+
+
+  <!-- SAKURA TREE LETTER DETAIL MODAL -->
+  <div class="tree-letter-modal" id="tree-letter-modal">
+    <div class="tree-letter-card">
+      <button type="button" class="tree-letter-close-btn" id="btn-close-tree-letter" title="Đóng bức thư">✕</button>
+      <div class="tree-letter-header">
+        <div class="tree-letter-seal" id="tree-letter-icon">🌸</div>
+        <span class="tree-letter-tag" id="tree-letter-tag">YÊU THƯƠNG</span>
+        <h3 class="tree-letter-title" id="tree-letter-title">Gửi Nụ Cười Em</h3>
+      </div>
+      <div class="tree-letter-body" id="tree-letter-body">
+        <!-- Nội dung thư -->
+      </div>
+      <div class="tree-letter-footer">
+        <span class="tree-letter-date" id="tree-letter-date" style="font-size: 0.85rem; color: #888;">✦ 20/10 Rực Rỡ</span>
+        <span class="tree-letter-sender" id="tree-letter-sender">— Người luôn thương em</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       ADMIN AUTHENTICATION (CÙNG 1 URL - SECRET ACCESS)
+       ========================================================================= -->
+
+  <!-- 1. MÃ PIN ADMIN MODAL -->
+  <div class="admin-modal-backdrop" id="admin-pin-modal">
+    <div class="pin-card">
+      <div class="pin-card-glow-halo"></div>
+      <div class="pin-header-emblem">
+        <div class="pin-crown-badge">👑</div>
+        <div class="pin-status-pill">✦ BẢO MẬT VIP QUẢN TRỊ ✦</div>
+      </div>
+      <h3 class="pin-title">Xác Thực Quản Trị Viên</h3>
+      <p class="pin-subtitle">
+        Nhập mã PIN để hiệu chỉnh toàn bộ website trực tiếp trong thời gian thực.
+      </p>
+      <div class="pin-quick-badge">
+        <span>🔑 Mặc định: <strong>2010</strong></span>
+        <span>⚡ Phím tắt: <strong>Ctrl + Shift + A</strong></span>
+      </div>
+
+      <form id="admin-pin-form">
+        <div class="pin-screen-box">
+          <input type="password" 
+                 id="admin-pin-input" 
+                 class="admin-pin-screen" 
+                 placeholder="••••" 
+                 maxlength="8" 
+                 autocomplete="off" 
+                 required>
+        </div>
+        <div id="admin-pin-error" class="admin-pin-error-box"></div>
+
+        <!-- Bàn phím số ảo sang trọng phong cách Cyber-Luxe -->
+        <div class="pin-keypad">
+          <button type="button" class="pin-key-btn" data-key="1">
+            <span class="pk-num">1</span><span class="pk-alpha">•</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="2">
+            <span class="pk-num">2</span><span class="pk-alpha">ABC</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="3">
+            <span class="pk-num">3</span><span class="pk-alpha">DEF</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="4">
+            <span class="pk-num">4</span><span class="pk-alpha">GHI</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="5">
+            <span class="pk-num">5</span><span class="pk-alpha">JKL</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="6">
+            <span class="pk-num">6</span><span class="pk-alpha">MNO</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="7">
+            <span class="pk-num">7</span><span class="pk-alpha">PQRS</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="8">
+            <span class="pk-num">8</span><span class="pk-alpha">TUV</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="9">
+            <span class="pk-num">9</span><span class="pk-alpha">WXYZ</span>
+          </button>
+          <button type="button" class="pin-key-btn pin-key-danger" data-key="clear">
+            <span class="pk-num">C</span><span class="pk-alpha">Xóa hết</span>
+          </button>
+          <button type="button" class="pin-key-btn" data-key="0">
+            <span class="pk-num">0</span><span class="pk-alpha">+</span>
+          </button>
+          <button type="button" class="pin-key-btn pin-key-back" data-key="back">
+            <span class="pk-num">⌫</span><span class="pk-alpha">Xóa</span>
+          </button>
+        </div>
+
+        <div class="pin-actions-group">
+          <button type="button" class="btn-pin-action btn-pin-cancel" id="btn-close-pin-modal">
+            ✕ Hủy Bỏ
+          </button>
+          <button type="submit" class="btn-pin-action btn-pin-submit">
+            <span>✨</span> Mở Khóa Quản Trị
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. BẢNG QUẢN TRỊ ADMIN TOÀN DIỆN (FULL DASHBOARD SUITE) -->
+  <div class="admin-modal-backdrop" id="admin-dashboard-modal">
+    <div class="admin-dashboard-container">
+      
+      <!-- Header Admin Sang Trọng Hoàng Gia -->
+      <div class="admin-dash-header">
+        <div class="admin-header-brand-block">
+          <div class="admin-brand-emblem-wrap">
+            <span class="admin-brand-icon">💎</span>
+            <span class="admin-live-pulse-dot"></span>
+          </div>
+          <div class="admin-brand-titles">
+            <div class="admin-header-eyebrow">✦ ROYAL ADMIN CONTROL CENTER ✦</div>
+            <h2 class="admin-header-main-title">
+              Trung Tâm Quản Trị Website VIP
+            </h2>
+            <p class="admin-header-subtitle">
+              Hiệu chỉnh trực tiếp thời gian thực • Lưu tức thì vào bộ nhớ • Trải nghiệm chuẩn Hoàng Gia
+            </p>
+          </div>
+        </div>
+        <div class="admin-header-right-tools">
+          <div class="admin-live-badge-pill" id="admin-db-status-badge" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #10b981; font-weight: 700;">
+            🟢 Database: <strong>SQLite Online</strong>
+          </div>
+          <div class="admin-live-badge-pill">
+            <span class="badge-dot-live"></span>
+            <span>Trực Tiếp (Live)</span>
+          </div>
+          <button type="button" class="btn-admin-close-circle" id="btn-close-admin-dash" title="Đóng bảng quản trị">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-dash-tabs">
+        <button type="button" class="admin-tab-btn active" data-tab="general">
+          <span>👑</span> <span>Thông Tin Chính</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="tree-letters">
+          <span>🌸</span> <span>Thư Cây Anh Đào</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="letter">
+          <span>💌</span> <span>Thư Ngỏ Tình Cảm</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="wishes">
+          <span>✨</span> <span>Quản Lý Lời Chúc</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="memories">
+          <span>📸</span> <span>Album Kỷ Niệm</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="music-theme">
+          <span>🎨</span> <span>Nhạc & Chủ Đề</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="security">
+          <span>🔐</span> <span>Bảo Mật & Sao Lưu</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="share">
+          <span>🔗</span> <span>Tạo Trang Riêng & QR</span>
+        </button>
+      </div>
+
+      <!-- Body Admin Tabs -->
+      <div class="admin-dash-body">
+        
+        <!-- TAB 1: THÔNG TIN CHÍNH -->
+        <div class="admin-tab-content active" id="admin-tab-general">
+          <!-- CHỌN CHẾ ĐỘ ĐỐI TƯỢNG NHẬN (NGƯỜI YÊU / BẠN BÈ) -->
+          <div class="form-group" style="background: rgba(255, 215, 0, 0.08); border: 1.5px solid rgba(255, 215, 0, 0.35); border-radius: 14px; padding: 14px 18px; margin-bottom: 20px;">
+            <label class="form-label" for="cfg-audience-mode" style="color: #ffd700; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              <span>👥</span> <span>Chế Độ Đối Tượng Nhận & Cách Xưng Hô Toàn Trang</span>
+            </label>
+            <select id="cfg-audience-mode" class="form-select" style="font-weight: 700; font-size: 0.96rem; background: #130f24; color: #fff;">
+              <option value="crush">💖 Người Yêu / Crush (Cách xưng hô: Anh - Em)</option>
+              <option value="friend">🌸 Bạn Bè / Tri Kỷ (Cách xưng hô: Tớ - Cậu)</option>
+            </select>
+            <small class="text-muted" style="display:block; margin-top: 6px; font-size: 0.8rem;">
+              ⚡ Khi chọn "Bạn Bè", hệ thống sẽ tự động biến đổi toàn bộ thư từ, lời chúc, danh xưng từ "Anh - Em" sang "Tớ - Cậu" mượt mà.
+            </small>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+              <label class="form-label" for="cfg-recipient-name">Tên Người Nhận (Chính)</label>
+              <input type="text" id="cfg-recipient-name" class="form-input" placeholder="Ví dụ: Nguyễn Ngọc Ánh">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cfg-recipient-nickname">Biệt Danh / Danh Xưng Ngọt Ngào</label>
+              <input type="text" id="cfg-recipient-nickname" class="form-input" placeholder="Ví dụ: Công Chúa Của Anh, Nàng Thơ...">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+              <label class="form-label" for="cfg-recipient-occasion">Dịp Lễ / Sự Kiện</label>
+              <input type="text" id="cfg-recipient-occasion" class="form-input" placeholder="Ví dụ: 20/10 - Ngày Phụ Nữ Việt Nam">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cfg-recipient-badge">Huy Hiệu VIP Trên Đầu Trang</label>
+              <input type="text" id="cfg-recipient-badge" class="form-input" placeholder="Ví dụ: ✦ VIP SPECIAL DEDICATION ✦">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cfg-recipient-subgreeting">Lời Ngỏ Ngắn Dưới Tiêu Đề</label>
+            <textarea id="cfg-recipient-subgreeting" class="form-textarea" rows="2" placeholder="Lời chúc ngọt ngào ngắn gọn..."></textarea>
+          </div>
+
+          <!-- AVATAR HUB SANG TRỌNG VỚI LIVE PREVIEW & NÉN ẢNH THÔNG MINH -->
+          <div class="admin-avatar-live-card">
+            <div class="admin-avatar-live-preview-wrap">
+              <img id="admin-avatar-live-preview" src="" alt="Avatar Preview" class="admin-avatar-live-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'">
+              <div class="admin-avatar-live-badge">👑 Live Avt</div>
+            </div>
+            <div class="admin-avatar-live-content">
+              <div class="admin-avatar-live-info">
+                <span class="admin-avatar-live-title" id="admin-recipient-live-name">Nguyễn Ngọc Ánh</span>
+                <span class="admin-avatar-live-badge-sub" id="admin-recipient-live-sub">Ảnh đại diện thời gian thực</span>
+              </div>
+              <div class="form-group" style="margin-bottom: 10px;">
+                <label class="form-label" for="cfg-recipient-avatar">Đường dẫn ảnh đại diện (Avatar URL)</label>
+                <input type="text" id="cfg-recipient-avatar" class="form-input" placeholder="https://images.unsplash.com/...">
+              </div>
+              <div class="admin-avatar-actions-bar">
+                <label class="vip-btn vip-btn-secondary" style="margin: 0; cursor: pointer; padding: 7px 16px; font-size: 0.85rem;">
+                  <span>📁 Tải Ảnh Từ Máy / ĐT</span>
+                  <input type="file" id="cfg-recipient-avatar-file" accept="image/*" style="display: none;">
+                </label>
+                <button type="button" class="btn-avatar-quick" id="btn-admin-avatar-preset" title="Đổi sang ảnh mẫu cực xinh">
+                  <span>🌸 Ảnh Mẫu Xinh</span>
+                </button>
+                <button type="button" class="btn-avatar-quick btn-avatar-clear" id="btn-admin-avatar-clear" title="Đặt lại ảnh mặc định">
+                  <span>↺ Đặt Lại</span>
+                </button>
+              </div>
+              <small class="text-muted" style="display:block; margin-top: 6px; font-size: 0.78rem;">
+                ⚡ Hệ thống tự động nén ảnh HD thông minh (không lo đầy bộ nhớ trình duyệt, lưu siêu mượt).
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cfg-recipient-date">Thời Gian Đếm Ngược (Event Date / Giờ G)</label>
+            <input type="datetime-local" id="cfg-recipient-date" class="form-input">
+            <small class="text-muted" style="display:block; margin-top:4px;">Nếu đã qua ngày này, đồng hồ sẽ tự động hiển thị ngày tôn vinh!</small>
+          </div>
+        </div>
+
+        <!-- TAB 1.5: THƯ CÂY ANH ĐÀO 3D (HỖ TRỢ THÊM & SỬA TẤM THƯ) -->
+        <div class="admin-tab-content" id="admin-tab-tree-letters">
+          <!-- Form thêm & sửa thư lên cây -->
+          <div class="glass-panel" id="admin-tree-letter-form-box" style="padding: 20px; margin-bottom: 24px; border-color: rgba(255, 105, 180, 0.5); transition: all 0.3s ease;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <h4 id="tree-letter-form-title" style="color: #ff69b4; margin: 0;">➕ Treo Thư Mới Lên Cây Anh Đào 3D</h4>
+              <span id="tree-letter-edit-badge" class="badge badge-gold" style="display: none;">Đang chế độ chỉnh sửa</span>
+            </div>
+            <input type="hidden" id="edit-tree-letter-index" value="">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+              <input type="text" id="new-tl-title" class="form-input" placeholder="Tiêu đề tấm thư...">
+              <input type="text" id="new-tl-tag" class="form-input" placeholder="Nhãn ngắn (Ánh Nắng, An Yên...)">
+              <input type="text" id="new-tl-icon" class="form-input" placeholder="Emoji (🌸, 💖, 👑)">
+              <select id="new-tl-color" class="form-select">
+                <option value="#ff69b4">🌸 Hồng Anh Đào</option>
+                <option value="#ffd700">👑 Vàng Hoàng Gia</option>
+                <option value="#ff1493">🌹 Đỏ Hồng Rực</option>
+                <option value="#9d4edd">💜 Tím Thủy Chung</option>
+                <option value="#00f0ff">💎 Xanh Lam Ngọc</option>
+                <option value="#2ed573">🍀 Xanh May Mắn</option>
+                <option value="#e63946">🕊️ Đỏ Ruby Đặc Biệt</option>
+              </select>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 12px;">
+              <input type="text" id="new-tl-sender" class="form-input" placeholder="Người gửi (Ví dụ: Người luôn thương em)">
+            </div>
+            <div class="form-group">
+              <textarea id="new-tl-content" class="form-textarea" rows="3" placeholder="Nội dung bức tâm thư treo trên cành cây..."></textarea>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; align-items: center;">
+              <button type="button" class="vip-btn vip-btn-secondary" id="btn-cancel-tree-letter-edit" style="display: none; padding: 10px 18px;">
+                ✕ Hủy Sửa
+              </button>
+              <button type="button" class="vip-btn vip-btn-primary" id="btn-add-tree-letter-submit" style="padding: 10px 24px; background: linear-gradient(135deg, #ff69b4 0%, #ffd700 100%); color: #000;">
+                🌸 Treo Lên Cây Anh Đào Ngay
+              </button>
+            </div>
+          </div>
+
+          <h4 style="margin-bottom: 14px; color: #fff;">Danh Sách Tấm Thư Đang Treo Trên Cây (Bấm Sửa ✏️ hoặc Xóa 🗑️)</h4>
+          <div id="admin-tree-letters-list">
+            <!-- Render động từ js -->
+          </div>
+        </div>
+
+        <!-- TAB 2: THƯ NGỎ HOÀNG GIA (PHONG BÌ 3D) -->
+        <div class="admin-tab-content" id="admin-tab-letter">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+            <p style="color: var(--text-muted); margin: 0; font-size: 0.9rem;">
+              Bức tâm thư chính được đặt trong phong bì hoàng gia 3D. Người nhận sẽ chạm mở phong bì để đọc.
+            </p>
+            <button type="button" class="vip-btn vip-btn-primary" id="btn-save-letter-only" style="padding: 8px 18px; font-size: 0.86rem;">
+              💾 Lưu Riêng Thư Này
+            </button>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cfg-letter-title">Tiêu Đề Bức Thư</label>
+            <input type="text" id="cfg-letter-title" class="form-input" placeholder="Gửi Đến Em - Người Phụ Nữ Tuyệt Vời Nhất">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cfg-letter-sender">Người Ký Tên (Chữ Ký Cuối Thư)</label>
+            <input type="text" id="cfg-letter-sender" class="form-input" placeholder="Người luôn thương em">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cfg-letter-content">Nội Dung Bức Thư Tình Cảm</label>
+            <textarea id="cfg-letter-content" class="form-textarea" rows="8" placeholder="Nhập những dòng tâm sự chân thành nhất..."></textarea>
+          </div>
+
+          <!-- Live Letter Mini Preview Parchment -->
+          <div class="admin-letter-live-preview-box">
+            <div class="admin-preview-parchment-header">
+              <span class="decor-badge" style="font-size: 0.72rem; color: #ffd700;">✦ XEM TRƯỚC GIẤY THƯ HOÀNG GIA TRONG PHONG BÌ ✦</span>
+            </div>
+            <h4 class="admin-preview-parchment-title" id="admin-preview-letter-title">Gửi Đến Em</h4>
+            <div class="admin-preview-parchment-content" id="admin-preview-letter-content">Nội dung thư...</div>
+            <div class="admin-preview-parchment-sender" id="admin-preview-letter-sender">— Người luôn thương em</div>
+          </div>
+        </div>
+
+        <!-- TAB 3: QUẢN LÝ LỜI CHÚC (HỖ TRỢ THÊM & SỬA LỜI CHÚC) -->
+        <div class="admin-tab-content" id="admin-tab-wishes">
+          <!-- Form thêm & sửa lời chúc -->
+          <div class="glass-panel" id="admin-wish-form-box" style="padding: 20px; margin-bottom: 24px; border-color: rgba(255, 215, 0, 0.4); transition: all 0.3s ease;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <h4 id="wish-form-title" style="color: var(--accent-gold); margin: 0;">➕ Thêm Lời Chúc Mới</h4>
+              <span id="wish-edit-badge" class="badge badge-gold" style="display: none;">Đang chế độ chỉnh sửa</span>
+            </div>
+            <input type="hidden" id="edit-wish-index" value="">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+              <input type="text" id="new-wish-title" class="form-input" placeholder="Tiêu đề lời chúc...">
+              <input type="text" id="new-wish-tag" class="form-input" placeholder="Chủ đề (Vẻ Đẹp, May Mắn...)">
+              <input type="text" id="new-wish-icon" class="form-input" placeholder="Emoji (✨, 💖, 👑)">
+            </div>
+            <div class="form-group">
+              <textarea id="new-wish-content" class="form-textarea" rows="2" placeholder="Nội dung lời chúc chi tiết..."></textarea>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 16px;">
+                <input type="text" id="new-wish-author" class="form-input" placeholder="Người gửi (Mặc định: Admin)" style="width: 200px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #fff; font-size: 0.9rem;">
+                  <input type="checkbox" id="new-wish-highlight" checked> Đánh dấu VIP Nổi Bật
+                </label>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <button type="button" class="vip-btn vip-btn-secondary" id="btn-cancel-wish-edit" style="display: none; padding: 10px 18px;">
+                  ✕ Hủy Sửa
+                </button>
+                <button type="button" class="vip-btn vip-btn-primary" id="btn-add-wish-submit" style="padding: 10px 24px;">
+                  Thêm Ngay
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="margin-bottom: 14px; color: #fff;">Danh Sách Lời Chúc Hiện Tại (Bấm Sửa ✏️ hoặc Xóa 🗑️)</h4>
+          <div id="admin-wishes-list">
+            <!-- Render động từ js -->
+          </div>
+        </div>
+
+        <!-- TAB 4: ALBUM KỶ NIỆM (HỖ TRỢ THÊM & SỬA ẢNH) -->
+        <div class="admin-tab-content" id="admin-tab-memories">
+          <!-- Form thêm & sửa ảnh mới -->
+          <div class="glass-panel" id="admin-mem-form-box" style="padding: 20px; margin-bottom: 24px; transition: all 0.3s ease;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <h4 id="mem-form-title" style="color: var(--accent-gold); margin: 0;">➕ Thêm Ảnh Kỷ Niệm Mới</h4>
+              <span id="mem-edit-badge" class="badge badge-gold" style="display: none;">Đang chế độ chỉnh sửa</span>
+            </div>
+            <input type="hidden" id="edit-mem-index" value="">
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 12px;">
+              <input type="text" id="new-mem-title" class="form-input" placeholder="Tiêu đề khoảnh khắc...">
+              <input type="text" id="new-mem-date" class="form-input" placeholder="Thời gian (ví dụ: Kỷ niệm mùa thu)">
+            </div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 12px;">
+              <input type="text" id="new-mem-url" class="form-input" placeholder="URL ảnh (https://...)">
+              <label class="vip-btn vip-btn-secondary" style="margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 9px 12px; font-size: 0.88rem;">
+                <span>📁 Tải Ảnh Từ Máy</span>
+                <input type="file" id="new-mem-file" accept="image/*" style="display: none;">
+              </label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="new-mem-desc" class="form-input" placeholder="Mô tả cảm xúc hoặc kỷ niệm ngắn gọn...">
+            </div>
+            <!-- Live Memory Image Preview -->
+            <div id="new-mem-preview-wrap" style="display: none; margin-bottom: 14px; align-items: center; gap: 14px;">
+              <img id="new-mem-preview-img" src="" alt="Preview" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; border: 1.5px solid #ffd700;">
+              <span class="text-muted" style="font-size: 0.85rem;">Ảnh đã nạp thành công và sẵn sàng lưu vào album.</span>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+              <button type="button" class="vip-btn vip-btn-secondary" id="btn-cancel-mem-edit" style="display: none; padding: 10px 18px;">
+                ✕ Hủy Sửa
+              </button>
+              <button type="button" class="vip-btn vip-btn-primary" id="btn-add-mem-submit" style="padding: 10px 24px;">
+                Thêm Vào Album
+              </button>
+            </div>
+          </div>
+
+          <h4 style="margin-bottom: 14px; color: #fff;">Danh Sách Ảnh Trong Album (Bấm Sửa ✏️ hoặc Xóa 🗑️)</h4>
+          <div id="admin-memories-list">
+            <!-- Render động từ js -->
+          </div>
+        </div>
+
+        <!-- TAB 5: NHẠC NỀN & CHỦ ĐỀ GIAO DIỆN -->
+        <div class="admin-tab-content" id="admin-tab-music-theme">
+          <div class="form-group">
+            <label class="form-label" for="cfg-theme-style">Chủ Đề Màu Sắc & Khí Chất (Theme Style)</label>
+            <select id="cfg-theme-style" class="form-select">
+              <option value="royal-gold">👑 Hoàng Gia Vàng Kim (Royal Gold & Obsidian Black)</option>
+              <option value="rose-romance">🌹 Hồng Nhung Lãng Mạn (Rose Romance & Wine Velvet)</option>
+              <option value="cyber-luxe">🌌 Ánh Tím Cyber Neon (Cyber Luxe & Deep Violet)</option>
+              <option value="emerald-prestige">💎 Ngọc Lục Bảo Quý Phái (Emerald Prestige)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cfg-particle-mode">Hiệu Ứng Hạt Rơi Nền (60FPS Canvas)</label>
+            <select id="cfg-particle-mode" class="form-select">
+              <option value="golden-dust">✨ Bụi Vàng & Vì Sao Hoàng Gia Bay Lên</option>
+              <option value="rose-petals">🌹 Cánh Hoa Hồng Rơi Dịu Dàng</option>
+              <option value="glowing-hearts">💖 Trái Tim Phát Sáng Bồng Bềnh</option>
+            </select>
+          </div>
+
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-top: 20px;">
+            <div class="form-group">
+              <label class="form-label" for="cfg-music-title">Tên Bài Hát Nền Hiển Thị</label>
+              <input type="text" id="cfg-music-title" class="form-input" placeholder="Tên bài hát...">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cfg-music-url">Link File Nhạc (MP3 URL)</label>
+              <input type="text" id="cfg-music-url" class="form-input" placeholder="https://.../music.mp3">
+            </div>
+
+            <div style="margin-top: 14px;">
+              <small class="text-muted" style="display:block; margin-bottom: 8px;">Nhạc mẫu lofi du dương có sẵn để chọn nhanh 1-click:</small>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button type="button" class="header-action-btn" data-preset-music="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" data-preset-title="Romantic Piano (Sweet Melody)">
+                  🎹 Piano Lãng Mạn
+                </button>
+                <button type="button" class="header-action-btn" data-preset-music="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-study-112191.mp3" data-preset-title="Cozy Lofi Sunset">
+                  ☕ Lofi Sunset
+                </button>
+                <button type="button" class="header-action-btn" data-preset-music="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f77c30.mp3?filename=cinematic-chillhop-123491.mp3" data-preset-title="Cinematic Chill Love">
+                  ✨ Cinematic Chill
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 6: BẢO MẬT & SAO LƯU -->
+        <div class="admin-tab-content" id="admin-tab-security">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="cfg-admin-pin">Đổi Mã PIN Quản Trị (Admin PIN)</label>
+              <input type="text" id="cfg-admin-pin" class="form-input" maxlength="8" placeholder="2010">
+              <small class="text-muted" style="display:block; margin-top: 4px;">Dùng khi mở bảng quản trị bí mật.</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cfg-entry-passcode">Mật Khẩu Mở Khóa Trang Đầu (Entry Passcode)</label>
+              <input type="text" id="cfg-entry-passcode" class="form-input" maxlength="8" placeholder="2010">
+              <small class="text-muted" style="display:block; margin-top: 4px;">Người nhận phải nhập mật mã này ở trang đầu.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cfg-entry-hint">Gợi Ý Mật Khẩu Cho Người Nhận (Hint)</label>
+            <input type="text" id="cfg-entry-hint" class="form-input" placeholder="Ngày kỷ niệm đặc biệt của chúng mình (Ví dụ: 2010)">
+            <small class="text-muted" style="display:block; margin-top: 4px;">Hiện ra khi người nhận nhấn 'Gợi ý mật mã?'.</small>
+          </div>
+
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 24px;">
+            <h4 style="color: var(--accent-gold); margin-bottom: 8px;">📦 Xuất & Nhập Cấu Hình (Backup / Restore)</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+              Tải file cấu hình JSON về máy tính để lưu trữ vĩnh viễn hoặc mang sang máy tính khác mà không bị mất dữ liệu.
+            </p>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <button type="button" class="vip-btn vip-btn-secondary" id="btn-export-config">
+                <span>💾</span> <span>Tải File Sao Lưu (.JSON)</span>
+              </button>
+              <button type="button" class="vip-btn vip-btn-secondary" id="btn-import-config-trigger">
+                <span>📂</span> <span>Nhập File Sao Lưu (.JSON)</span>
+              </button>
+              <input type="file" id="file-import-config" accept=".json" style="display: none;">
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 24px;">
+            <h4 style="color: #ff69b4; margin-bottom: 8px;">🗺️ Quản Lý Lộ Trình Hành Trình VIP</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;">
+              Mở khóa ngay toàn bộ các chương để kiểm tra trang, hoặc đặt lại trạng thái ban đầu để người nhận đi theo lộ trình tuần tự (phải xong phần này mới tới phần kia).
+            </p>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <button type="button" class="vip-btn" id="btn-admin-unlock-all-journey" style="background: rgba(255, 215, 0, 0.2); border: 1px solid #ffd700; color: #ffd700;">
+                🔓 Mở Khóa Toàn Bộ Lộ Trình (Xem Tự Do)
+              </button>
+              <button type="button" class="vip-btn" id="btn-admin-reset-journey" style="background: rgba(255, 105, 180, 0.2); border: 1px solid #ff69b4; color: #ff85a2;">
+                🔒 Đặt Lại Lộ Trình Ban Đầu (Chỉ Mở Chương 1)
+              </button>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 24px;">
+            <h4 style="color: #ff4757; margin-bottom: 8px;">⚠️ Vùng Nguy Hiểm</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;">
+              Khôi phục toàn bộ nội dung về phiên bản mẫu ban đầu nếu bạn muốn làm lại từ đầu.
+            </p>
+            <button type="button" class="vip-btn" id="btn-reset-default" style="background: rgba(255, 71, 87, 0.2); border: 1px solid #ff4757; color: #ff6b81;">
+              🔄 Khôi Phục Cài Đặt Gốc
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 7: TẠO TRANG RIÊNG & QR CODE -->
+        <div class="admin-tab-content" id="admin-tab-share">
+          
+          <div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(147, 51, 234, 0.08)); border: 1px solid rgba(255, 215, 0, 0.25); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+            <h3 style="color: var(--accent-gold); margin-bottom: 8px; font-size: 1.15rem;">
+              🔗 Tạo Trang Riêng Biệt & Chia Sẻ
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+              Tạo một trang web riêng biệt với toàn bộ nội dung đã cấu hình sẵn. Người nhận chỉ cần nhập mật mã là xem ngay, 
+              <strong style="color: #ffd700;">không cần chọn chế độ hay điều chỉnh gì thêm</strong>. 
+              Mỗi trang có link duy nhất và mã QR để chia sẻ dễ dàng.
+            </p>
+          </div>
+
+          <!-- Form tạo trang chia sẻ -->
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label class="form-label" for="share-page-label">📝 Tên / Nhãn cho trang chia sẻ</label>
+            <input type="text" id="share-page-label" class="form-input" placeholder="Ví dụ: Trang dành cho Ngọc Ánh, Trang cho bạn Hoa..." value="">
+            <small class="text-muted" style="display:block; margin-top: 4px;">Giúp bạn phân biệt các trang đã tạo khi quản lý.</small>
+          </div>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;">
+            <button type="button" class="vip-btn vip-btn-primary" id="btn-create-share-page" style="flex: 1; min-width: 200px;">
+              <span>🚀</span> <span>Tạo Trang Riêng Ngay (Chụp Snapshot)</span>
+            </button>
+          </div>
+
+          <!-- KẾT QUẢ SAU KHI TẠO: LINK + QR CODE -->
+          <div id="share-result-panel" style="display: none; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(34, 211, 238, 0.06)); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 16px; padding: 28px; margin-bottom: 28px; text-align: center;">
+            <div style="font-size: 1.4rem; margin-bottom: 8px;">✅ Trang Đã Được Tạo Thành Công!</div>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;" id="share-result-label">Trang Chia Sẻ VIP</p>
+            
+            <!-- Link chia sẻ -->
+            <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 20px;">
+              <input type="text" id="share-result-url" class="form-input" readonly style="flex: 1; text-align: center; font-weight: 700; color: #22d3ee; font-size: 0.95rem; letter-spacing: 0.5px; background: rgba(0,0,0,0.3); border: 1px solid rgba(34,211,238,0.4);">
+              <button type="button" class="vip-btn vip-btn-secondary" id="btn-copy-share-url" style="white-space: nowrap; padding: 10px 18px;" title="Sao chép link">
+                📋 Copy
+              </button>
+            </div>
+
+            <!-- QR Code -->
+            <div style="margin-bottom: 12px;">
+              <div style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 12px;">📱 Quét mã QR để truy cập trang:</div>
+              <div id="share-qr-container" style="display: inline-block; background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                <img id="share-qr-image" src="" alt="QR Code" style="width: 200px; height: 200px; display: block; border-radius: 8px;">
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px;">
+              <button type="button" class="vip-btn vip-btn-secondary" id="btn-download-qr" style="padding: 8px 18px; font-size: 0.85rem;">
+                💾 Tải QR Code
+              </button>
+              <button type="button" class="vip-btn" id="btn-share-new" style="padding: 8px 18px; font-size: 0.85rem; background: rgba(147, 51, 234, 0.2); border: 1px solid #9333ea; color: #c084fc;">
+                ➕ Tạo Trang Mới
+              </button>
+            </div>
+          </div>
+
+          <!-- DANH SÁCH CÁC TRANG ĐÃ TẠO -->
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 8px;">
+            <h4 style="color: var(--accent-gold); margin-bottom: 12px;">📑 Danh Sách Trang Đã Tạo</h4>
+            <div id="share-pages-list" style="display: flex; flex-direction: column; gap: 10px;">
+              <p style="color: var(--text-muted); font-size: 0.88rem; text-align: center; padding: 20px 0;">
+                ⏳ Đang tải danh sách...
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Footer Admin Actions -->
+      <div class="admin-dash-footer">
+        <button type="button" class="vip-btn vip-btn-secondary" onclick="window.adminManager.closeDashboard()">
+          Đóng
+        </button>
+        <button type="button" class="vip-btn vip-btn-primary" id="btn-save-admin-settings">
+          <span>✨</span> <span>Lưu Mọi Thay Đổi & Áp Dụng Ngay</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTAINER THÔNG BÁO TOAST -->
+  <div id="toast-container"></div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/tree3d.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

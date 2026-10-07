@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Gentle Farewell & Final Gratitude ✦ Kỷ Niệm & Lời Tri Ân</title>
+  
+  <!-- SEO & Meta -->
+  <meta name="description" content="Trang lưu giữ tâm tư chân thành, lời cảm ơn sâu sắc và lời chúc tốt đẹp nhất trước khi khép lại một chặng đường thanh xuân.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕊️</text></svg>">
+
+  <!-- Google Fonts: Playfair Display, Plus Jakarta Sans, Dancing Script -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================================
+       1. CORE DESIGN TOKENS & RESET
+       ========================================================================= */
+    :root {
+      --bg-deep: #080710;
+      --bg-midnight: #0f0c20;
+      --bg-violet: #18112e;
+      --accent-gold: #f59e0b;
+      --accent-gold-light: #fbbf24;
+      --accent-rose: #f43f5e;
+      --accent-rose-soft: #fda4af;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      --glass-bg: rgba(15, 12, 32, 0.72);
+      --glass-border: rgba(245, 158, 11, 0.22);
+      --glass-border-hover: rgba(245, 158, 11, 0.55);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-hand: 'Dancing Script', cursive;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(244, 63, 94, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(245, 158, 11, 0.09) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(24, 17, 46, 0.6) 0%, transparent 80%);
+      background-attachment: fixed;
+    }
+
+    /* Background Canvas for Shooting Stars & Stardust */
+    #space-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Container */
+    .app-viewport {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =========================================================================
+       2. TOP NAVIGATION BAR (GLASSMORPHIC CHAPTER CONTROLS)
+       ========================================================================= */
+    .header-nav-wrap {
+      position: sticky;
+      top: 18px;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      padding: 0 16px;
+      margin-bottom: 24px;
+    }
+
+    .header-nav {
+      background: rgba(15, 12, 32, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 9999px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      max-width: 95%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .header-nav::-webkit-scrollbar { display: none; }
+
+    .nav-chapter-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+    }
+
+    .nav-chapter-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-chapter-btn.active {
+      color: #080710;
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fda4af 100%);
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.45);
+      border-color: rgba(251, 191, 36, 0.6);
+    }
+
+    /* Return to Home link */
+    .home-link-pill {
+      margin-left: 6px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      color: var(--accent-gold-light);
+      text-decoration: none;
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .home-link-pill:hover { opacity: 0.8; }
+
+    /* =========================================================================
+       3. CHAPTER SECTIONS CONTAINER
+       ========================================================= */
+    .main-content {
+      flex: 1;
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 24px 100px;
+      position: relative;
+    }
+
+    .chapter-section {
+      display: none;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .chapter-section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      animation: chapterIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes chapterIn {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Common Card Styles */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 36px 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(30px);
+    }
+
+    /* Headings & Texts */
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 4px 16px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.22;
+      background: linear-gradient(135deg, #ffffff 0%, #fef3c7 45%, #fda4af 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      font-size: 1.12rem;
+      color: #cbd5e1;
+      font-style: italic;
+      font-family: var(--font-serif);
+      margin-bottom: 28px;
+    }
+
+    /* =========================================================================
+       CHAPTER 1: LỜI CHÀO & TRI ÂN
+       ========================================================================= */
+    .hero-narrative-box {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #cbd5e1;
+      margin-bottom: 34px;
+    }
+
+    .hero-narrative-box p {
+      margin-bottom: 18px;
+    }
+
+    .honor-highlight-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(244, 63, 94, 0.12) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 12px 20px;
+      border-radius: 16px;
+      margin: 10px 0 24px;
+      color: #fef08a;
+      font-weight: 600;
+    }
+
+    .honor-highlight-badge span.icon {
+      font-size: 1.6rem;
+    }
+
+    /* Counter Grid */
+    .memory-counter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .counter-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 18px;
+      padding: 18px 20px;
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .counter-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-gold);
+    }
+
+    .counter-number {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-gold-light);
+      margin-bottom: 4px;
+    }
+
+    .counter-label {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    /* =========================================================================
+       CHAPTER 2: CÂY KỶ NIỆM (INTERACTIVE MEMORY TREE)
+       ========================================================================= */
+    .tree-stage-wrapper {
+      position: relative;
+      border-radius: 24px;
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    .tree-graphic-center {
+      position: relative;
+      margin: 0 auto 36px;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tree-avatar-icon {
+      font-size: 4.8rem;
+      filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.6));
+      animation: treeFloating 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes treeFloating {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-10px) scale(1.03); }
+    }
+
+    .tree-aura-ring {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 2px dashed rgba(245, 158, 11, 0.4);
+      animation: spinSlow 30s linear infinite;
+      pointer-events: none;
+      top: -10px;
+    }
+
+    @keyframes spinSlow {
+      to { transform: rotate(360deg); }
+    }
+
+    .tree-prompt-hint {
+      margin-top: 8px;
+      font-size: 0.92rem;
+      color: #fcd34d;
+      font-style: italic;
+    }
+
+    /* 4 Memory Cards Grid */
+    .memory-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      text-align: left;
+    }
+
+    .memory-lantern-card {
+      background: linear-gradient(145deg, rgba(22, 17, 44, 0.85) 0%, rgba(13, 10, 26, 0.9) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.25);
+      border-radius: 20px;
+      padding: 24px 22px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .memory-lantern-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(245, 158, 11, 0.25);
+    }
+
+    .memory-lantern-card.active {
+      border-color: var(--accent-rose);
+      box-shadow: 0 0 30px rgba(244, 63, 94, 0.45);
+      background: linear-gradient(145deg, rgba(38, 20, 56, 0.9) 0%, rgba(20, 12, 34, 0.95) 100%);
+    }
+
+    .lantern-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .lantern-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.15);
+      padding: 3px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+
+    .lantern-icon {
+      font-size: 1.8rem;
+    }
+
+    .lantern-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .lantern-desc {
+      font-size: 0.94rem;
+      color: #cbd5e1;
+      line-height: 1.68;
+    }
+
+    .lantern-click-tap {
+      margin-top: 16px;
+      font-size: 0.78rem;
+      color: var(--accent-gold-light);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    /* Modal for Detailed Memory */
+    .memory-detail-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 2, 10, 0.88);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .memory-detail-modal.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-inner-card {
+      background: linear-gradient(160deg, #18112e 0%, #0c0819 100%);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 24px;
+      max-width: 540px;
+      width: 100%;
+      padding: 36px 30px;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(245, 158, 11, 0.3);
+      transform: scale(0.92);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .memory-detail-modal.show .modal-inner-card {
+      transform: scale(1);
+    }
+
+    .btn-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    .btn-modal-close:hover {
+      background: rgba(244, 63, 94, 0.3);
+      border-color: var(--accent-rose);
+      transform: rotate(90deg);
+    }
+
+    /* =========================================================================
+       CHAPTER 3: BỨC TÂM THƯ (THE FINAL LETTER OF CLOSURE)
+       ========================================================================= */
+    .parchment-letter-wrapper {
+      background: linear-gradient(135deg, #fdfbf7 0%, #fbf3e4 50%, #f7ebd4 100%);
+      color: #2b1810;
+      border: 2px solid #d4af37;
+      border-radius: 24px;
+      padding: clamp(28px, 5vw, 56px);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), inset 0 0 45px rgba(212, 175, 55, 0.18);
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .letter-header-ornament {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .ornament-stamp {
+      display: inline-block;
+      width: 52px;
+      height: 52px;
+      background: radial-gradient(circle, #b91c1c 0%, #7f1d1d 100%);
+      color: #fff;
+      border-radius: 50%;
+      line-height: 52px;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 15px rgba(127, 29, 29, 0.5), inset 0 0 8px rgba(0, 0, 0, 0.4);
+      margin-bottom: 12px;
+    }
+
+    .letter-parchment-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 3.2vw, 2rem);
+      font-weight: 800;
+      color: #4a151b;
+      margin-bottom: 6px;
+    }
+
+    .letter-date-pill {
+      font-size: 0.85rem;
+      color: #854d0e;
+      font-style: italic;
+    }
+
+    .letter-divider-line {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #b45309, transparent);
+      margin: 16px auto 28px;
+    }
+
+    .letter-body-content {
+      font-family: var(--font-serif);
+      font-size: clamp(1.02rem, 2.2vw, 1.15rem);
+      line-height: 2.05;
+      color: #332014;
+      text-align: justify;
+      margin-bottom: 36px;
+    }
+
+    .letter-body-content p {
+      margin-bottom: 20px;
+      text-indent: 2em;
+    }
+
+    .letter-signature-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding-top: 18px;
+      border-top: 1px dashed rgba(180, 83, 9, 0.35);
+    }
+
+    .signature-title {
+      font-size: 0.88rem;
+      color: #78350f;
+      margin-bottom: 4px;
+    }
+
+    .signature-name {
+      font-family: var(--font-hand);
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #7f1d1d;
+      line-height: 1.1;
+      transform: rotate(-3deg);
+    }
+
+    .signature-footnote {
+      font-size: 0.82rem;
+      color: #854d0e;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* =========================================================================
+       CHAPTER 4: DẤU CHẤM HẾT (FINAL RELEASE & MOVING FORWARD)
+       ========================================================================= */
+    .release-stage {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .release-icon-orbit {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: inline-block;
+      animation: floatBreath 3.5s ease-in-out infinite;
+    }
+
+    @keyframes floatBreath {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .blessing-quote-card {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 20px;
+      padding: 30px 24px;
+      margin: 24px auto 36px;
+      max-width: 640px;
+    }
+
+    .quote-big-text {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      color: #fef08a;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .quote-author-tag {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 4 Pillars of Good Wishes */
+    .blessing-pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 32px 0 46px;
+      text-align: left;
+    }
+
+    .pillar-card {
+      background: rgba(18, 13, 36, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.25s ease;
+    }
+    .pillar-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+
+    .pillar-icon {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .pillar-title {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .pillar-desc {
+      font-size: 0.86rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    /* THE SACRED CLOSE BUTTON */
+    .btn-sacred-close {
+      background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 50%, #d97706 100%);
+      color: #fff;
+      border: 1.5px solid rgba(255, 215, 0, 0.5);
+      padding: 18px 42px;
+      border-radius: 9999px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 35px rgba(185, 28, 28, 0.45), 0 0 20px rgba(245, 158, 11, 0.3);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-sacred-close:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 45px rgba(185, 28, 28, 0.6), 0 0 30px rgba(245, 158, 11, 0.5);
+      border-color: #ffd700;
+    }
+
+    .btn-sacred-close:active {
+      transform: scale(0.97);
+    }
+
+    /* =========================================================================
+       5. CINEMATIC FINAL BLACKOUT OVERLAY (DẤU CHẤM HẾT VĨNH CỬU)
+       ========================================================================= */
+    #final-blackout-curtain {
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      z-index: 99999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 3.5s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    #final-blackout-curtain.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .final-starlight-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.4;
+      margin-bottom: 16px;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 2s ease 1s, transform 2s ease 1s;
+    }
+
+    #final-blackout-curtain.active .final-starlight-quote {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .final-author-sign {
+      font-family: var(--font-hand);
+      font-size: 2.8rem;
+      color: var(--accent-gold-light);
+      margin-bottom: 36px;
+      opacity: 0;
+      transition: opacity 2s ease 2s;
+    }
+
+    #final-blackout-curtain.active .final-author-sign {
+      opacity: 1;
+    }
+
+    .btn-revisit {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.6);
+      padding: 10px 24px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 1.5s ease 3s, background 0.2s, color 0.2s;
+    }
+    #final-blackout-curtain.active .btn-revisit {
+      opacity: 1;
+    }
+    .btn-revisit:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    /* =========================================================================
+       6. MINIMALIST DOCKED AUDIO PLAYER (BOTTOM LEFT)
+       ========================================================================= */
+    .docked-music-player {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 12, 32, 0.88);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 9999px;
+      padding: 8px 18px 8px 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .music-disc-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+      border: 1.5px solid var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      animation: spinDisc 6s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .docked-music-player.playing .music-disc-icon {
+      animation-play-state: running;
+    }
+
+    @keyframes spinDisc {
+      to { transform: rotate(360deg); }
+    }
+
+    .music-info-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .music-track-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .music-status-state {
+      font-size: 0.68rem;
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    .btn-music-toggle {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+    .btn-music-toggle:hover {
+      transform: scale(1.15);
+      color: var(--accent-gold);
+    }
+
+    /* Footer Note */
+    .site-footer-quiet {
+      text-align: center;
+      padding: 30px 16px;
+      font-size: 0.82rem;
+      color: var(--text-subtle);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .glass-card { padding: 26px 18px; }
+      .docked-music-player {
+        bottom: 12px;
+        left: 12px;
+        padding: 6px 12px 6px 8px;
+      }
+      .music-track-title { max-width: 100px; }
+      .section-eyebrow { font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Cosmic Canvas: Shooting Stars & Ambient Nebulae -->
+  <canvas id="space-canvas"></canvas>
+
+  <div class="app-viewport">
+    
+    <!-- TOP STICKY CHAPTER NAVIGATION -->
+    <header class="header-nav-wrap">
+      <nav class="header-nav" aria-label="Điều hướng chương">
+        <button type="button" class="nav-chapter-btn active" data-chapter="ch1">
+          <span>🌸</span> <span>Chương 1: Lời Chào</span>
+        </button>
+        <button type="button" class="nav-chapter-btn" data-chapter="ch2">
+          <span>🎋</span> <span>Chương 2: Cây Kỷ Niệm</span>
+        </button>
+        <button type="button" class="nav-chapter-btn" data-chapter="ch3">
+          <span>💌</span> <span>Chương 3: Bức Tâm Thư</span>
+        </button>
+        <button type="button" class="nav-chapter-btn" data-chapter="ch4">
+          <span>🕊️</span> <span>Chương 4: Dấu Chấm Hết</span>
+        </button>
+        <a href="index.html" class="home-link-pill" title="Về trang sự kiện chính 20/10">
+          <span>←</span> <span>Trang 20/10</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- MAIN CHAPTER CONTENT -->
+    <main class="main-content">
+
+      <!-- =========================================================================
+           CHƯƠNG 1: LỜI CHÀO & TRI ÂN THANH XUÂN
+           ========================================================================= -->
+      <section class="chapter-section active" id="sec-ch1">
+        <div class="glass-card">
+          <div class="section-eyebrow">✦ CHƯƠNG 1: LỜI CHÀO & TRI ÂN ✦</div>
+          <h1 class="section-title">Kỷ Niệm & Lời Cảm Ơn</h1>
+          <p class="section-subtitle">Gửi người em từng đồng hành cùng anh suốt chặng đường qua.</p>
+
+          <!-- Huy hiệu tốt nghiệp thủ khoa -->
+          <div class="honor-highlight-badge">
+            <span class="icon">🎓</span>
+            <div>
+              <strong>Cột mốc tự hào:</strong> Anh đã chính thức bảo vệ thành công đồ án tốt nghiệp với kết quả xuất sắc, khép lại trọn vẹn những năm tháng sinh viên để tự tin bước vào tương lai.
+            </div>
+          </div>
+
+          <!-- Lời ngỏ đĩnh đạc và cảm xúc -->
+          <div class="hero-narrative-box">
+            <p>
+              Thời gian trôi nhanh hơn những gì anh từng nghĩ. Mới hôm nào còn là những buổi chiều tan trường đầy ắp những câu chuyện bâng quơ, thì hôm nay, mỗi người trong chúng ta đều đã đứng trước một ngưỡng cửa hoàn toàn mới của cuộc đời. Em bước vào cánh cổng Cấp 3 rực rỡ với biết bao chân trời mới; còn anh cũng đã hoàn thành chặng đường đồ án để bước tiếp trên con đường sự nghiệp của một kỹ sư.
+            </p>
+            <p>
+              Trang web này được viết nên không phải để tạo nên bất kỳ sự gượng gạo, áy náy hay cầu xin một điều gì không thuộc về mình. Anh xây dựng nơi đây bằng tất cả sự tôn trọng, lòng tự trọng và tình cảm trong trẻo nhất của một người anh từng hết lòng quan tâm và chở che cho em.
+            </p>
+            <p>
+              Đây là món quà tinh thần cuối cùng—một lời cảm ơn chân thành cho tất cả những khoảnh khắc đẹp đẽ mà em đã mang tới cho thanh xuân của anh.
+            </p>
+          </div>
+
+          <!-- Bộ đếm ký ức -->
+          <div class="memory-counter-grid">
+            <div class="counter-item">
+              <div class="counter-number" id="count-days">365+</div>
+              <div class="counter-label">Ngày Thanh Xuân Đồng Hành</div>
+            </div>
+            <div class="counter-item">
+              <div class="counter-number">100%</div>
+              <div class="counter-label">Chân Thành & Tôn Trọng</div>
+            </div>
+            <div class="counter-item">
+              <div class="counter-number">Top 1</div>
+              <div class="counter-label">Đồ Án Tốt Nghiệp Xuất Sắc</div>
+            </div>
+            <div class="counter-item">
+              <div class="counter-number">Vĩnh Cửu</div>
+              <div class="counter-label">Lời Chúc Bình An Cho Em</div>
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-top: 32px;">
+            <button type="button" class="nav-chapter-btn active" onclick="switchChapter('ch2')" style="display: inline-flex;">
+              <span>Sang Chương 2: Cây Kỷ Niệm</span> <span>➔</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================================
+           CHƯƠNG 2: CÂY KỶ NIỆM (INTERACTIVE MEMORY TREE)
+           ========================================================================= -->
+      <section class="chapter-section" id="sec-ch2">
+        <div class="glass-card">
+          <div class="section-eyebrow">✦ CHƯƠNG 2: CÂY KỶ NIỆM ✦</div>
+          <h2 class="section-title">Những Mảnh Ghép Đẹp Nhất</h2>
+          <p class="section-subtitle">Chạm vào từng tấm thẻ nguyện ước treo dưới tán cây để mở ra những lời tri ân từ đáy lòng.</p>
+
+          <div class="tree-stage-wrapper">
+            <div class="tree-graphic-center">
+              <div class="tree-aura-ring"></div>
+              <div class="tree-avatar-icon">🌳</div>
+              <p class="tree-prompt-hint">✦ Bốn mùa qua đi, những điều tốt đẹp vẫn vẹn nguyên ✦</p>
+            </div>
+
+            <!-- 4 Thẻ kỷ niệm tương tác -->
+            <div class="memory-cards-grid">
+              
+              <!-- Thẻ 1 -->
+              <div class="memory-lantern-card" onclick="openMemoryModal(1)">
+                <div class="lantern-card-top">
+                  <span class="lantern-tag">Kỷ Niệm Đầu</span>
+                  <span class="lantern-icon">🧋</span>
+                </div>
+                <div>
+                  <h3 class="lantern-title">Những Ly Trà Sữa & Nụ Cười Vô Tư</h3>
+                  <p class="lantern-desc">Cảm ơn em vì những ngày đầu ngây ngô, những ly trà sữa cưng chiều và tiếng cười giòn tan xua đi mọi áp lực.</p>
+                </div>
+                <div class="lantern-click-tap">
+                  <span>🔍 Chạm để đọc tâm sự đầy đủ</span> <span>→</span>
+                </div>
+              </div>
+
+              <!-- Thẻ 2 -->
+              <div class="memory-lantern-card" onclick="openMemoryModal(2)">
+                <div class="lantern-card-top">
+                  <span class="lantern-tag">Bài Học Yêu Thương</span>
+                  <span class="lantern-icon">✨</span>
+                </div>
+                <div>
+                  <h3 class="lantern-title">Chia Sẻ Ước Mơ & Cảm Giác Chở Che</h3>
+                  <p class="lantern-desc">Cảm ơn em vì đã sẻ chia những giấc mơ nhỏ bé, giúp anh hiểu được cảm giác muốn bảo bọc và dịu dàng với một người là như thế nào.</p>
+                </div>
+                <div class="lantern-click-tap">
+                  <span>🔍 Chạm để đọc tâm sự đầy đủ</span> <span>→</span>
+                </div>
+              </div>
+
+              <!-- Thẻ 3 -->
+              <div class="memory-lantern-card" onclick="openMemoryModal(3)">
+                <div class="lantern-card-top">
+                  <span class="lantern-tag">Động Lực Trưởng Thành</span>
+                  <span class="lantern-icon">🏆</span>
+                </div>
+                <div>
+                  <h3 class="lantern-title">Nguồn Cảm Hứng Bảo Vệ Đồ Án Xuất Sắc</h3>
+                  <p class="lantern-desc">Sự hiện diện của em từng là nguồn động lực thầm lặng giúp anh thức trắng nhiều đêm, kiên trì hoàn thành và bảo vệ đồ án thủ khoa đầy tự hào.</p>
+                </div>
+                <div class="lantern-click-tap">
+                  <span>🔍 Chạm để đọc tâm sự đầy đủ</span> <span>→</span>
+                </div>
+              </div>
+
+              <!-- Thẻ 4 -->
+              <div class="memory-lantern-card" onclick="openMemoryModal(4)">
+                <div class="lantern-card-top">
+                  <span class="lantern-tag">Lời Chúc Tương Lai</span>
+                  <span class="lantern-icon">🎒</span>
+                </div>
+                <div>
+                  <h3 class="lantern-title">Nụ Cười Thuần Khiết Bước Vào Cấp 3</h3>
+                  <p class="lantern-desc">Chúc em khi bước vào mái trường mới sẽ luôn giữ vẹn nguyên nụ cười rạng rỡ ấy, gặp được những người bạn chân thành và tìm thấy hạnh phúc của riêng mình.</p>
+                </div>
+                <div class="lantern-click-tap">
+                  <span>🔍 Chạm để đọc tâm sự đầy đủ</span> <span>→</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+            <button type="button" class="nav-chapter-btn" onclick="switchChapter('ch1')">
+              <span>← Chương 1</span>
+            </button>
+            <button type="button" class="nav-chapter-btn active" onclick="switchChapter('ch3')">
+              <span>Sang Chương 3: Bức Tâm Thư</span> <span>➔</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================================
+           CHƯƠNG 3: BỨC TÂM THƯ (THE FINAL LETTER OF CLOSURE)
+           ========================================================================= -->
+      <section class="chapter-section" id="sec-ch3">
+        <div class="parchment-letter-wrapper">
+          
+          <div class="letter-header-ornament">
+            <div class="ornament-stamp">🕊️</div>
+            <h2 class="letter-parchment-title">Bức Tâm Thư Khép Lại Chặng Đường</h2>
+            <span class="letter-date-pill">✦ Viết vào một đêm thanh thản • Tháng 10/2026 ✦</span>
+            <div class="letter-divider-line"></div>
+          </div>
+
+          <div class="letter-body-content">
+            <p>
+              Cảm ơn em vì khoảng thời gian vừa qua đã cho anh những kỷ niệm thật đẹp. Anh biết khi bước chân vào môi trường mới, em sẽ có bạn bè mới, niềm vui mới và những sự lựa chọn thuộc về riêng em.
+            </p>
+            <p>
+              Nhìn em có những định hướng và những tình cảm cho riêng mình, anh hiểu rằng vai trò của anh đã có thể dừng lại ở đây. Tình cảm và sự quan tâm anh dành cho em suốt thời gian qua luôn là thật lòng và trong sáng nhất, nhưng anh cũng đủ chín chắn để hiểu rằng: tôn trọng sự tự do và lựa chọn của em cũng chính là giữ gìn lòng tự trọng cho chính bản thân mình.
+            </p>
+            <p>
+              Chúc em bước vào cấp 3 sẽ học tập thật tốt, luôn bình an, mạnh mẽ và tìm thấy niềm hạnh phúc trọn vẹn nhất với những quyết định của mình. Đoạn đường này anh xin phép dừng lại, không làm phiền em thêm nữa để cả hai đều có khoảng trời riêng.
+            </p>
+            <p>
+              Giữ gìn sức khỏe và luôn mỉm cười nhé, bảo trọng.
+            </p>
+          </div>
+
+          <div class="letter-signature-area">
+            <span class="signature-title">Người từng hết lòng chở che cho em,</span>
+            <div class="signature-name">Quân</div>
+            <span class="signature-footnote">✦ Vừa hoàn thành đồ án tốt nghiệp xuất sắc & Vững vàng bước tiếp ✦</span>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; margin-top: 36px; padding-top: 18px; border-top: 1px dashed rgba(180, 83, 9, 0.25);">
+            <button type="button" class="nav-chapter-btn" onclick="switchChapter('ch2')" style="color: #4a151b;">
+              <span>← Chương 2</span>
+            </button>
+            <button type="button" class="nav-chapter-btn active" onclick="switchChapter('ch4')">
+              <span>Chương 4: Dấu Chấm Hết 🕊️</span> <span>➔</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- =========================================================================
+           CHƯƠNG 4: VẠN LỜI CHÚC & DẤU CHẤM HẾT (FINAL RELEASE)
+           ========================================================================= -->
+      <section class="chapter-section" id="sec-ch4">
+        <div class="glass-card">
+          <div class="section-eyebrow">✦ CHƯƠNG 4: DẤU CHẤM HẾT & BƯỚC TIẾP ✦</div>
+          <h2 class="section-title">Buông Tay Trong Bình Yên</h2>
+          <p class="section-subtitle">Một dấu chấm hết trọn vẹn, không oán trách, chỉ có sự đĩnh đạc và lời chúc phúc chân thành.</p>
+
+          <div class="release-stage">
+            <div class="release-icon-orbit">🕊️</div>
+
+            <div class="blessing-quote-card">
+              <p class="quote-big-text">
+                "Chúc em chân cứng đá mềm trên con đường sắp tới."
+              </p>
+              <span class="quote-author-tag">— Lời nhắn nhủ sau cùng dành cho cô bé bước vào Cấp 3</span>
+            </div>
+
+            <!-- 4 Trụ cột lời chúc -->
+            <div class="blessing-pillars">
+              <div class="pillar-card">
+                <div class="pillar-icon">🌸</div>
+                <div class="pillar-title">1. Bình An</div>
+                <p class="pillar-desc">Mong em mỗi ngày thức dậy đều thấy lòng nhẹ nhõm, không vướng bận ưu phiền hay tổn thương.</p>
+              </div>
+
+              <div class="pillar-card">
+                <div class="pillar-icon">💎</div>
+                <div class="pillar-title">2. Bản Lĩnh</div>
+                <p class="pillar-desc">Dám ước mơ, dám lựa chọn và tự tin chịu trách nhiệm với con đường em đã chọn.</p>
+              </div>
+
+              <div class="pillar-card">
+                <div class="pillar-icon">📚</div>
+                <div class="pillar-title">3. Tỏa Sáng Học Tập</div>
+                <p class="pillar-desc">Cấp 3 là cánh cổng mở ra tương lai, chúc em luôn đạt được kết quả học tập tốt nhất.</p>
+              </div>
+
+              <div class="pillar-card">
+                <div class="pillar-icon">☀️</div>
+                <div class="pillar-title">4. Hạnh Phúc Trọn Vẹn</div>
+                <p class="pillar-desc">Tìm thấy niềm vui chân thực bên cạnh những người bạn và những sự lựa chọn mới của riêng em.</p>
+              </div>
+            </div>
+
+            <!-- Nút hành động thiêng liêng: Khép lại đoạn đường cũ -->
+            <div style="margin-top: 10px;">
+              <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 20px;">
+                Khi bấm nút bên dưới, trang web sẽ dần chìm vào vũ trụ và khép lại trang ký ức này mãi mãi.
+              </p>
+              <button type="button" class="btn-sacred-close" id="btn-trigger-closure">
+                <span>🕊️</span> <span>Khép Lại Đoạn Đường Cũ</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER QUIET NOTE -->
+    <footer class="site-footer-quiet">
+      <p>✦ Crafted with Maturity, Respect & Dignity by Quân • 2026 ✦</p>
+    </footer>
+
+  </div>
+
+  <!-- =========================================================================
+       MODAL CHI TIẾT TỪNG KỶ NIỆM (CHAPTER 2)
+       ========================================================================= -->
+  <div class="memory-detail-modal" id="memory-modal">
+    <div class="modal-inner-card">
+      <button type="button" class="btn-modal-close" id="btn-close-modal" title="Đóng">✕</button>
+      <div style="font-size: 2.8rem; margin-bottom: 12px;" id="modal-icon">🧋</div>
+      <div class="section-eyebrow" id="modal-tag">KỶ NIỆM</div>
+      <h3 class="section-title" id="modal-title" style="font-size: 1.6rem; margin-bottom: 14px;">Tiêu đề</h3>
+      <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.85;" id="modal-content">Nội dung chi tiết...</p>
+      <div style="margin-top: 24px; text-align: right;">
+        <button type="button" class="nav-chapter-btn active" id="btn-modal-done" style="display: inline-flex;">
+          Đã lưu giữ trong lòng ✦
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MÀN HÌNH CHÌM VÀO ĐÊM SAO KHI BẤM "KHÉP LẠI ĐOẠN ĐƯỜNG CŨ"
+       ========================================================================= -->
+  <div id="final-blackout-curtain">
+    <p class="final-starlight-quote">
+      "Anh bước tiếp đây.<br>Cảm ơn và tạm biệt em."
+    </p>
+    <div class="final-author-sign">— Quân</div>
+    <button type="button" class="btn-revisit" id="btn-reopen-view">
+      ↺ Nhìn lại một thoáng
+    </button>
+  </div>
+
+  <!-- =========================================================================
+       MINIMALIST FLOATING MUSIC PLAYER (BOTTOM LEFT)
+       ========================================================================= -->
+  <div class="docked-music-player" id="docked-music-player">
+    <div class="music-disc-icon">🎵</div>
+    <div class="music-info-text">
+      <span class="music-track-title">A Gentle Farewell (Piano)</span>
+      <span class="music-status-state" id="music-status-label">Chạm để phát nhạc</span>
+    </div>
+    <button type="button" class="btn-music-toggle" id="btn-music-toggle" title="Bật / Tắt nhạc">
+      ▶
+    </button>
+  </div>
+
+  <!-- Audio Element (Soft Melancholy Piano) -->
+  <audio id="farewell-audio" preload="auto" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- =========================================================================
+       SCRIPTS: NAVIGATION, CANVAS COSMOS, AUDIO & AUDIO FADEOUT
+       ========================================================================= -->
+  <script src="js/store.js"></script>
+  <script>
+    // --- 1. DỮ LIỆU KỶ NIỆM CHI TIẾT ---
+    const memoryDetails = {
+      1: {
+        icon: "🧋",
+        tag: "THỜI GIAN ĐẦU VÔ TƯ",
+        title: "Những Ly Trà Sữa & Tiếng Cười Vô Tư",
+        content: "Anh vẫn nhớ những ngày đầu quen biết, khi mọi chuyện còn thật hồn nhiên. Những buổi chiều cùng chia nhau ly trà sữa, nghe em tíu tít kể về những chuyện thường nhật ở trường lớp. Nụ cười không chút lo âu của em khi ấy từng làm tan biến mọi mệt mỏi trong anh. Cảm ơn em vì đã mang đến cho anh những khoảnh khắc ngọt ngào và giản dị nhất của thanh xuân."
+      },
+      2: {
+        icon: "✨",
+        tag: "BÀI HỌC VỀ SỰ CHỞ CHE",
+        title: "Chia Sẻ Ước Mơ & Cảm Giác Biết Yêu Thương",
+        content: "Có những đêm hai đứa nhắn tin tâm sự về những hoài bão sau này. Lắng nghe em nói về những điều em thích, những nỗi sợ vu vơ, anh mới nhận ra bản thân mình có thể dịu dàng và kiên nhẫn đến nhường nào. Dù tình cảm ấy cuối cùng chỉ có thể dừng lại ở giới hạn 'anh trai - em gái', anh vẫn luôn biết ơn vì em đã giúp anh học được cách nâng niu và thật lòng muốn chở che cho một người."
+      },
+      3: {
+        icon: "🏆",
+        tag: "ĐỘNG LỰC TRƯỞNG THÀNH",
+        title: "Nguồn Cảm Hứng Vươn Lên Tốt Nghiệp Thủ Khoa",
+        content: "Giai đoạn làm đồ án tốt nghiệp là khoảng thời gian căng thẳng nhất trong đời sinh viên. Mỗi khi kiệt sức vì thức trắng nhiều đêm bên máy tính, nghĩ về việc muốn trở thành một người anh thật giỏi giang, bản lĩnh để em có thể tự hào lại tiếp thêm cho anh sức mạnh. Kết quả bảo vệ đồ án xuất sắc ngày hôm nay có một phần cảm hứng thầm lặng từ em. Cảm ơn em vì điều đó."
+      },
+      4: {
+        icon: "🎒",
+        tag: "LỜI CHÚC TƯƠNG LAI CẤP 3",
+        title: "Nụ Cười Thuần Khiết Bước Vào Cấp 3",
+        content: "Cấp 3 sẽ là một chân trời hoàn toàn mới—sẽ có những người bạn mới, những rung động mới và những chân trời rộng mở hơn rất nhiều. Anh chân thành chúc em luôn giữ được nét hồn nhiên, sự tự tin và niềm vui trong từng ngày tới lớp. Hãy luôn mạnh mẽ và tìm thấy hạnh phúc trọn vẹn bên cạnh những người mà em đã lựa chọn."
+      }
+    };
+
+    function openMemoryModal(id) {
+      const data = memoryDetails[id];
+      if (!data) return;
+
+      document.getElementById("modal-icon").textContent = data.icon;
+      document.getElementById("modal-tag").textContent = data.tag;
+      document.getElementById("modal-title").textContent = data.title;
+      document.getElementById("modal-content").textContent = data.content;
+
+      const modal = document.getElementById("memory-modal");
+      modal.classList.add("show");
+    }
+
+    function closeMemoryModal() {
+      const modal = document.getElementById("memory-modal");
+      modal.classList.remove("show");
+    }
+
+    document.getElementById("btn-close-modal")?.addEventListener("click", closeMemoryModal);
+    document.getElementById("btn-modal-done")?.addEventListener("click", closeMemoryModal);
+    document.getElementById("memory-modal")?.addEventListener("click", (e) => {
+      if (e.target.id === "memory-modal") closeMemoryModal();
+    });
+
+    // --- 2. ĐIỀU HƯỚNG 4 CHƯƠNG ---
+    function switchChapter(chKey) {
+      // Buttons
+      document.querySelectorAll(".nav-chapter-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.getAttribute("data-chapter") === chKey);
+      });
+
+      // Sections
+      document.querySelectorAll(".chapter-section").forEach((sec) => {
+        sec.classList.remove("active");
+      });
+
+      const activeSec = document.getElementById(`sec-${chKey}`);
+      if (activeSec) {
+        activeSec.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    document.querySelectorAll(".nav-chapter-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const chapter = e.currentTarget.getAttribute("data-chapter");
+        if (chapter) switchChapter(chapter);
+      });
+    });
+
+    // --- 3. ĐIỀU KHIỂN NHẠC NỀN LOFI/PIANO ---
+    const audio = document.getElementById("farewell-audio");
+    const playerWidget = document.getElementById("docked-music-player");
+    const toggleBtn = document.getElementById("btn-music-toggle");
+    const statusLabel = document.getElementById("music-status-label");
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (!audio) return;
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        playerWidget.classList.remove("playing");
+        toggleBtn.textContent = "▶";
+        statusLabel.textContent = "Đã tạm dừng";
+      } else {
+        audio.volume = 0.6;
+        audio.play().then(() => {
+          isPlaying = true;
+          playerWidget.classList.add("playing");
+          toggleBtn.textContent = "⏸";
+          statusLabel.textContent = "Đang phát êm dịu";
+        }).catch(err => {
+          console.warn("Autoplay restriction:", err);
+        });
+      }
+    }
+
+    toggleBtn?.addEventListener("click", toggleAudio);
+    playerWidget?.addEventListener("click", (e) => {
+      if (e.target !== toggleBtn) toggleAudio();
+    });
+
+    // Tự động thử phát khi click đầu tiên vào trang
+    window.addEventListener("click", () => {
+      if (!isPlaying && audio) {
+        audio.volume = 0.55;
+        audio.play().then(() => {
+          isPlaying = true;
+          playerWidget.classList.add("playing");
+          toggleBtn.textContent = "⏸";
+          statusLabel.textContent = "Đang phát êm dịu";
+        }).catch(() => {});
+      }
+    }, { once: true });
+
+    // --- 4. HÀNH ĐỘNG THIÊNG LIÊNG: KHÉP LẠI ĐOẠN ĐƯỜNG CŨ (FADEOUT VĨNH CỬU) ---
+    const sacredBtn = document.getElementById("btn-trigger-closure");
+    const curtain = document.getElementById("final-blackout-curtain");
+    const revisitBtn = document.getElementById("btn-reopen-view");
+
+    sacredBtn?.addEventListener("click", () => {
+      // 1. Kéo rèm đen vũ trụ phủ lên toàn bộ màn hình
+      curtain.classList.add("active");
+
+      // 2. Giảm dần âm lượng nhạc nền về 0 trong 3.5 giây
+      if (audio && isPlaying) {
+        const fadeInterval = setInterval(() => {
+          if (audio.volume > 0.05) {
+            audio.volume = Math.max(0, audio.volume - 0.05);
+          } else {
+            audio.pause();
+            clearInterval(fadeInterval);
+          }
+        }, 150);
+      }
+    });
+
+    revisitBtn?.addEventListener("click", () => {
+      curtain.classList.remove("active");
+      if (audio) {
+        audio.volume = 0.55;
+        audio.play().catch(() => {});
+      }
+    });
+
+    // --- 5. CANVAS HIỆU ỨNG VŨ TRỤ, BỤI SAO & SAO BĂNG ---
+    const canvas = document.getElementById("space-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initStars();
+    });
+
+    const stars = [];
+    const shootingStars = [];
+    const starCount = Math.min(180, Math.floor((width * height) / 8000));
+
+    function initStars() {
+      stars.length = 0;
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.4 + 0.3,
+          alpha: Math.random() * 0.8 + 0.2,
+          speed: Math.random() * 0.02 + 0.005,
+          color: ["#ffffff", "#fef08a", "#fda4af", "#e0e7ff"][Math.floor(Math.random() * 4)]
+        });
+      }
+    }
+    initStars();
+
+    function spawnShootingStar() {
+      if (shootingStars.length < 2 && Math.random() < 0.015) {
+        shootingStars.push({
+          x: Math.random() * width * 0.8 + width * 0.1,
+          y: Math.random() * (height * 0.4),
+          length: Math.random() * 90 + 50,
+          speed: Math.random() * 8 + 6,
+          angle: (Math.PI / 4) + (Math.random() - 0.5) * 0.2,
+          opacity: 1
+        });
+      }
+    }
+
+    function animateSpace() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Render Stars
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        s.alpha += Math.sin(Date.now() * s.speed) * 0.01;
+        const currentAlpha = Math.max(0.1, Math.min(1, s.alpha));
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = currentAlpha;
+        ctx.fill();
+      }
+
+      // Render Shooting Stars
+      spawnShootingStar();
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const ss = shootingStars[i];
+        const tailX = ss.x - Math.cos(ss.angle) * ss.length;
+        const tailY = ss.y - Math.sin(ss.angle) * ss.length;
+
+        const grad = ctx.createLinearGradient(tailX, tailY, ss.x, ss.y);
+        grad.addColorStop(0, "rgba(255, 255, 255, 0)");
+        grad.addColorStop(1, `rgba(254, 240, 138, ${ss.opacity})`);
+
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(ss.x, ss.y);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.8;
+        ctx.globalAlpha = ss.opacity;
+        ctx.stroke();
+
+        ss.x += Math.cos(ss.angle) * ss.speed;
+        ss.y += Math.sin(ss.angle) * ss.speed;
+        ss.opacity -= 0.018;
+
+        if (ss.opacity <= 0 || ss.x > width || ss.y > height) {
+          shootingStars.splice(i, 1);
+        }
+      }
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animateSpace);
+    }
+    requestAnimationFrame(animateSpace);
+
+    // --- 6. ĐỒNG BỘ CHẾ ĐỘ XƯNG HÔ (BẠN BÈ: TỚ - CẬU / NGƯỜI YÊU: ANH - EM) ---
+    try {
+      const stored = localStorage.getItem("bo_2010_vip_config");
+      const config = stored ? JSON.parse(stored) : {};
+      const urlMode = new URLSearchParams(window.location.search).get("mode");
+      const mode = urlMode || config.audienceMode || "crush";
+
+      if (mode === "friend" && typeof window.transformPronouns === "function") {
+        const textElements = document.querySelectorAll(
+          ".chapter-title, .chapter-subtitle, .chapter-prose p, .lantern-card h3, .lantern-desc, .parchment-letter-body, .parchment-signature, .final-blessing-text, .final-starlight-quote, .pillar-card h4, .pillar-desc"
+        );
+        textElements.forEach((el) => {
+          el.innerHTML = window.transformPronouns(el.innerHTML, "friend");
+        });
+      }
+    } catch (e) {}
+  </script>
+</body>
+</html>
