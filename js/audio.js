@@ -31,6 +31,7 @@ class AudioManager {
   }
 
   initAudioElement() {
+    this.audioElement.loop = true;
     this.audioElement.addEventListener("play", () => {
       this.isPlaying = true;
       this.updateUIState();
@@ -39,16 +40,15 @@ class AudioManager {
       this.isPlaying = false;
       this.updateUIState();
     });
+    // Lặp đi lặp lại 1 bài duy nhất liên tục (Infinite Loop)
+    this.audioElement.addEventListener("ended", () => {
+      this.audioElement.currentTime = 0;
+      this.audioElement.play().catch(() => {});
+    });
     this.audioElement.addEventListener("error", (e) => {
-      console.warn("Audio stream error or blocked, will retry or fallback", e);
-      const fallbackUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3";
-      if (this.audioElement.src && !this.audioElement.src.includes("pixabay")) {
-        console.log("Audio not found on disk, playing backup melody");
-        this.audioElement.src = fallbackUrl;
-        if (this.isPlaying) {
-          this.audioElement.play().catch(() => {});
-        }
-      }
+      console.warn("Chưa tìm thấy file bài hát hoặc đang chờ file MP3:", e);
+      this.isPlaying = false;
+      this.updateUIState();
     });
   }
 

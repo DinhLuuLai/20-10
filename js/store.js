@@ -117,8 +117,8 @@ const DEFAULT_CONFIG = {
     relationshipStatus: "Tình yêu duy nhất",
   },
   music: {
-    title: "Nàng Thơ - Hoàng Dũng",
-    artist: "Hoàng Dũng",
+    title: "Nàng Thơ (Lofi Ver.) - Hoàng Dũng x Freak D",
+    artist: "Hoàng Dũng x Freak D",
     url: "audio/nang-tho.mp3",
     autoPlayPrompt: true,
   },
